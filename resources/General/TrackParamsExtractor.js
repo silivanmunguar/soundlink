@@ -5,7 +5,7 @@
  *
  * @class
  *
- * @property {Object} trackParams - An object containing the extracted track parameters (serviceProvider, trackId).
+ * @property {Object} _trackParams - An object containing the extracted track parameters (serviceProvider, trackId).
  * @property {String} sharedUrl - The shared track URL to extract parameters from.
  *
  * @method extractTrackParams - Extracts track parameters from a shared track URL.
@@ -16,14 +16,15 @@
  * // Create an instance of TrackParamsExtractor
  * const trackParamsExtractor = new TrackParamsExtractor();
  *
- * // Extract track parameters from a shared track URL
- * trackParamsExtractor.extractTrackParams(
- *   "https://open.spotify.com/track/3Zwu2K0Qa5sT6teZO0Ql3j?si=8e2e2e2e2e2e2e2e"
- * );
+ * // Set the shared track URL to extract parameters from
+ * trackParamsExtractor.sharedUrl = "https://open.spotify.com/track/3Zwu2K0Qa5sT6teZO0Ql3j?si=8e2e2e2e2e2e2e2e";
+ *
+ * // Extract track parameters from the shared track URL
+ * const trackParams = trackParamsExtractor.extractTrackParams(trackParamsExtractor.sharedUrl);
  *
  * // Log the extracted track parameters to the console
- * console.log(trackParamsExtractor.trackParams.serviceProvider); // logs 'spotify'
- * console.log(trackParamsExtractor.trackParams.trackId); // logs '3Zwu2K0Qa5sT6teZO0Ql3j'
+ * console.log(trackParams.serviceProvider); // logs 'spotify'
+ * console.log(trackParams.trackId); // logs '3Zwu2K0Qa5sT6teZO0Ql3j'
  */
 class TrackParamsExtractor {
   constructor() {
