@@ -1,39 +1,34 @@
-/*  
-
-  This is to extract track parameters from a shared url. 
-  The shared url is the url that is shared by the user from the service provider they are using.
-
-  Attributes:
-    _trackParams: Object (serviceProvider, trackId)
-    serviceProvider: String (deezer, spotify, etc.)
-    trackId: String (the id of the track)
-    sharedUrl: String (the url that is shared by the user)
-
-  Methods:
-    get trackParams(): Object (serviceProvider, trackId)
-    extractTrackParams(sharedUrl: String): void 
-
-  Return:
-    None
-  
-  Example:
-    const trackParamsExtractor = new TrackParamsExtractor();
-    trackParamsExtractor.extractTrackParams(
-      "https://open.spotify.com/track/3Zwu2K0Qa5sT6teZO0Ql3j?si=8e2e2e2e2e2e2e2e"
-    console.log(trackParamsExtractor.trackParams.trackId);
-    console.log(trackParamsExtractor.trackParams.serviceProvider); 
-
-*/
-
+/**
+ * - `TrackParamsExtractor`
+ *
+ * A class for extracting track parameters (service provider and track ID) from a shared track URL.
+ *
+ * @class
+ *
+ * @property {Object} trackParams - An object containing the extracted track parameters (serviceProvider, trackId).
+ * @property {String} sharedUrl - The shared track URL to extract parameters from.
+ *
+ * @method extractTrackParams - Extracts track parameters from a shared track URL.
+ *   @param {String} sharedUrl - The shared track URL to extract parameters from.
+ *   @returns {Object} - An object containing the extracted track parameters (serviceProvider, trackId).
+ *
+ * @example
+ * // Create an instance of TrackParamsExtractor
+ * const trackParamsExtractor = new TrackParamsExtractor();
+ *
+ * // Extract track parameters from a shared track URL
+ * trackParamsExtractor.extractTrackParams(
+ *   "https://open.spotify.com/track/3Zwu2K0Qa5sT6teZO0Ql3j?si=8e2e2e2e2e2e2e2e"
+ * );
+ *
+ * // Log the extracted track parameters to the console
+ * console.log(trackParamsExtractor.trackParams.serviceProvider); // logs 'spotify'
+ * console.log(trackParamsExtractor.trackParams.trackId); // logs '3Zwu2K0Qa5sT6teZO0Ql3j'
+ */
 class TrackParamsExtractor {
   constructor() {
     this._trackParams = {};
     this.sharedUrl = "";
-  }
-
-  // Getters method for trackParams
-  get trackParams() {
-    return this._trackParams;
   }
 
   extractTrackParams(sharedUrl) {
@@ -48,6 +43,9 @@ class TrackParamsExtractor {
       serviceProvider: serviceProvider,
       trackId: trackId,
     };
+
+    // Return the track params
+    return this._trackParams;
   }
 }
 
