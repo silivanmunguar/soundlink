@@ -1,8 +1,8 @@
 import QueryTrackDetails from "../../../Interfaces/QueryTrackDetails.js";
 import GenerateSpotifyToken from "../Oauth/GenerateSpotifyToken.js";
 
-/*  
-  This class is responsible for getting the track details from Spotify API given a track id.
+/** 
+ * This class is responsible for getting the track details from Spotify API given a track id.
 
   Attributes:
       trackDetails (object): The track details.
@@ -16,7 +16,7 @@ import GenerateSpotifyToken from "../Oauth/GenerateSpotifyToken.js";
       getTrackDetails(trackId): Gets the track details from Spotify API given a track id.
 
   
-  Example:
+  @example:
       const spotifyTrack = new SpotifyTrackDetails();
       spotifyTrack
         .getTrackDetails("7BH6nyhnWTSfMUwwrCYbJF")
@@ -59,11 +59,11 @@ class SpotifyTrackDetails extends QueryTrackDetails {
     }
 
     // Get the track details
-    const responseJson = await response.json();
-    this.trackDetails.title = responseJson.name;
-    this.trackDetails.artist = responseJson.artists[0].name;
-    this.trackDetails.album = responseJson.album.name;
-    this.trackDetails.externalUrl = responseJson.external_urls.spotify;
+    const responseJSON = await response.json();
+    this.trackDetails.title = responseJSON.name;
+    this.trackDetails.artist = responseJSON.artists[0].name;
+    this.trackDetails.album = responseJSON.album.name;
+    this.trackDetails.externalUrl = responseJSON.external_urls.spotify;
 
     return this.trackDetails;
   }

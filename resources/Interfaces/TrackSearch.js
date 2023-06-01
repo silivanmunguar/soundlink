@@ -1,4 +1,11 @@
-// Purpose: Interface for track search classes.
+/** #TODO: Improve documentation
+ * @interface TrackSearch
+ * @description Interface for track search
+ * @method searchForTrack
+ * @param {Object} incomingTrackDetials - The incoming track details
+ * @returns {Object} - The new track details
+ * @throws {Error} - If method not implemented
+ */
 class TrackSearch {
   constructor() {
     this.incomingTrackDetials = {};

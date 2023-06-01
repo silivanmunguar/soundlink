@@ -28,14 +28,14 @@ class DeezerTrackDetails extends QueryTrackDetails {
     }
 
     // Get the track details
-    const responseJson = await response.json();
+    const responseJSON = await response.json();
 
     // Set the track details
     this.trackDetails = {
-      title: responseJson.title,
-      artist: responseJson.artist.name,
-      album: responseJson.album.title,
-      externalUrl: responseJson.link,
+      title: responseJSON.title,
+      artist: responseJSON.artist.name,
+      album: responseJSON.album.title,
+      externalUrl: responseJSON.link,
     };
 
     // Return the track details

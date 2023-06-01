@@ -20,23 +20,23 @@ class DeezerTrackSearch extends TrackSearch {
     }
 
     // Get the track details
-    const responseJson = await response.json();
+    const responseJSON = await response.json();
 
     //TODO: check if results are not undefined for all services
     // check if results are not undefined
     if (
-      responseJson.data.length === 0 ||
-      responseJson.data[0].title === "'Undefined" ||
-      responseJson.data[0].artist.name === "UNDEFINED"
+      responseJSON.data.length === 0 ||
+      responseJSON.data[0].title === "'Undefined" ||
+      responseJSON.data[0].artist.name === "UNDEFINED"
     ) {
       throw new Error("No results found on Deezer. Try another song.");
     }
 
     // set the track details
-    this.newTrackDetails.title = responseJson.data[0].title;
-    this.newTrackDetails.artist = responseJson.data[0].artist.name;
-    this.newTrackDetails.album = responseJson.data[0].album.title;
-    this.newTrackDetails.externalUrl = responseJson.data[0].link;
+    this.newTrackDetails.title = responseJSON.data[0].title;
+    this.newTrackDetails.artist = responseJSON.data[0].artist.name;
+    this.newTrackDetails.album = responseJSON.data[0].album.title;
+    this.newTrackDetails.externalUrl = responseJSON.data[0].link;
 
     return this.newTrackDetails;
   }
