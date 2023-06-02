@@ -32,12 +32,47 @@ class TrackParamsExtractor {
     this.sharedUrl = ''
   }
 
-  extractTrackParams (sharedUrl) {
+  extractTrackParams () {
+    // Return null if the shared URL is not set
+    if (!this.sharedUrl) {
+      return null
+    }
+
     // Get serice provider
-    const serviceProvider = sharedUrl.split('/')[2].split('.')[1]
+    /** ______________________________________________________________________________
+     *
+     * MY SOLUTION
+     * const serviceProvider = this.sharedUrl.split("/")[2].split(".")[1];
+     * _________________________________________________________________________________
+     *
+     * COPILOT thinks this is more efficient. However, it is less readable.
+     * _________________________________________________________________________________
+     */
+
+    const firstDotIndex = this.sharedUrl.indexOf('.')
+    const secondDotIndex = this.sharedUrl.indexOf('.', firstDotIndex + 1)
+    const serviceProvider = this.sharedUrl.substring(
+      firstDotIndex + 1,
+      secondDotIndex
+    )
 
     // Get the track id
-    const trackId = sharedUrl.split('/')[4].split('?')[0]
+    /** ______________________________________________________________________________
+     *
+     * MY SOLUTION
+     * const lastSlashIndex = this.sharedUrl.lastIndexOf("/");
+     * const trackId = this.sharedUrl.substring(lastSlashIndex + 1).split("?")[0];
+     * _________________________________________________________________________________
+     *
+     * COPILOT thinks this is more efficient. However, it is less readable.
+     * _________________________________________________________________________________
+     */
+    const lastSlashIndex = this.sharedUrl.lastIndexOf('/')
+    const questionMarkIndex = this.sharedUrl.indexOf('?', lastSlashIndex)
+    const trackId = this.sharedUrl.substring(
+      lastSlashIndex + 1,
+      questionMarkIndex !== -1 ? questionMarkIndex : undefined
+    )
 
     // Set the track params
     this._trackParams = {
