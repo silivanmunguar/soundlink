@@ -27,27 +27,27 @@
  * console.log(trackParams.trackId); // logs '3Zwu2K0Qa5sT6teZO0Ql3j'
  */
 class TrackParamsExtractor {
-  constructor() {
-    this._trackParams = {};
-    this.sharedUrl = "";
+  constructor () {
+    this._trackParams = {}
+    this.sharedUrl = ''
   }
 
-  extractTrackParams(sharedUrl) {
+  extractTrackParams (sharedUrl) {
     // Get serice provider
-    const serviceProvider = sharedUrl.split("/")[2].split(".")[1];
+    const serviceProvider = sharedUrl.split('/')[2].split('.')[1]
 
     // Get the track id
-    const trackId = sharedUrl.split("/")[4].split("?")[0];
+    const trackId = sharedUrl.split('/')[4].split('?')[0]
 
     // Set the track params
     this._trackParams = {
-      serviceProvider: serviceProvider,
-      trackId: trackId,
-    };
+      serviceProvider,
+      trackId
+    }
 
     // Return the track params
-    return this._trackParams;
+    return this._trackParams
   }
 }
 
-export default TrackParamsExtractor;
+export default TrackParamsExtractor

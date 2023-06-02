@@ -29,15 +29,15 @@
  * });
  */
 class TrackSearch {
-  constructor() {
-    this.incomingTrackDetials = {};
-    this.newTrackDetails = {};
-    this.searchUrl = "";
+  constructor () {
+    this.incomingTrackDetials = {}
+    this.newTrackDetails = {}
+    this.searchUrl = ''
   }
 
-  searchForTrack(incomingTrackDetials) {
-    throw new Error("Method 'getTrackDetails' must be implemented.");
+  searchForTrack (incomingTrackDetials) {
+    throw new Error("Method 'getTrackDetails' must be implemented.")
   }
 }
 
-export default TrackSearch;
+export default TrackSearch

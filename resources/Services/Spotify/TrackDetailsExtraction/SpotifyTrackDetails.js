@@ -1,7 +1,7 @@
-import QueryTrackDetails from "../../../Interfaces/QueryTrackDetails.js";
-import GenerateSpotifyToken from "../Oauth/GenerateSpotifyToken.js";
+import QueryTrackDetails from '../../../Interfaces/QueryTrackDetails.js'
+import GenerateSpotifyToken from '../Oauth/GenerateSpotifyToken.js'
 
-/** 
+/**
  * This class is responsible for getting the track details from Spotify API given a track id.
 
   Attributes:
@@ -15,7 +15,6 @@ import GenerateSpotifyToken from "../Oauth/GenerateSpotifyToken.js";
   Methods:
       getTrackDetails(trackId): Gets the track details from Spotify API given a track id.
 
-  
   @example:
       const spotifyTrack = new SpotifyTrackDetails();
       spotifyTrack
@@ -28,45 +27,45 @@ import GenerateSpotifyToken from "../Oauth/GenerateSpotifyToken.js";
         });
 */
 class SpotifyTrackDetails extends QueryTrackDetails {
-  async getTrackDetails(trackId) {
-    this.trackId = trackId;
+  async getTrackDetails (trackId) {
+    this.trackId = trackId
 
     // Get the token
-    const tokenGenerator = new GenerateSpotifyToken();
-    this.token = await tokenGenerator.getToken();
+    const tokenGenerator = new GenerateSpotifyToken()
+    this.token = await tokenGenerator.getToken()
 
     // Set the url
-    const url = `${process.env.SPOTIFY_API_TRACK_QUERY_URL}${this.trackId}`;
+    const url = `${process.env.SPOTIFY_API_TRACK_QUERY_URL}${this.trackId}`
 
     // Set the headers
     const headers = {
-      Authorization: `Bearer ${this.token}`,
-    };
+      Authorization: `Bearer ${this.token}`
+    }
 
     // Set the timeout
-    const TIMEOUT = 5000;
+    const TIMEOUT = 5000
 
     // Get the response
     const response = await fetch(url, {
-      headers: headers,
-      timeout: TIMEOUT,
-    });
+      headers,
+      timeout: TIMEOUT
+    })
 
     // Check if the response is valid
     if (response.status !== 200) {
-      const message = await response.json();
-      throw new Error(message.error.message);
+      const message = await response.json()
+      throw new Error(message.error.message)
     }
 
     // Get the track details
-    const responseJSON = await response.json();
-    this.trackDetails.title = responseJSON.name;
-    this.trackDetails.artist = responseJSON.artists[0].name;
-    this.trackDetails.album = responseJSON.album.name;
-    this.trackDetails.externalUrl = responseJSON.external_urls.spotify;
+    const responseJSON = await response.json()
+    this.trackDetails.title = responseJSON.name
+    this.trackDetails.artist = responseJSON.artists[0].name
+    this.trackDetails.album = responseJSON.album.name
+    this.trackDetails.externalUrl = responseJSON.external_urls.spotify
 
-    return this.trackDetails;
+    return this.trackDetails
   }
 }
 
-export default SpotifyTrackDetails;
+export default SpotifyTrackDetails

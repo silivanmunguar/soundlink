@@ -1,40 +1,40 @@
-import QueryTrackDetails from "../../../Interfaces/TrackDetails.js";
+import QueryTrackDetails from '../../../Interfaces/TrackDetails.js'
 
 // This class is responsible for getting the track details from Tidal API given a track id.
 class TidalTrackDetails extends QueryTrackDetails {
-  async getTrackDetails(trackId) {
-    this.trackId = trackId;
+  async getTrackDetails (trackId) {
+    this.trackId = trackId
 
     // Set the url
-    const url = `https://api.tidal.com/v1/tracks/${this.trackId}?countryCode=US`;
+    const url = `https://api.tidal.com/v1/tracks/${this.trackId}?countryCode=US`
 
     // Set the timeout
-    const TIMEOUT = 5000;
+    const TIMEOUT = 5000
 
     // Get the response
     const response = await fetch(url, {
-      timeout: TIMEOUT,
-    });
+      timeout: TIMEOUT
+    })
 
     // Check if the response is valid
     if (response.status !== 200) {
-      const message = await response.json();
-      throw new Error(message.error.message);
+      const message = await response.json()
+      throw new Error(message.error.message)
     }
 
     // Get the track details
-    const responseJSON = await response.json();
+    const responseJSON = await response.json()
 
     // Set the track details
     this.trackDetails = {
       title: responseJSON.title,
       artist: responseJSON.artist.name,
       album: responseJSON.album.title,
-      externalUrl: responseJSON.url,
-    };
+      externalUrl: responseJSON.url
+    }
 
-    return this.trackDetails;
+    return this.trackDetails
   }
 }
 
-export default TidalTrackDetails;
+export default TidalTrackDetails

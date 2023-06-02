@@ -27,15 +27,15 @@
  * });
  */
 class QueryTrackDetails {
-  constructor() {
-    this.trackDetails = {};
-    this.trackId = "";
-    this.token = "";
+  constructor () {
+    this.trackDetails = {}
+    this.trackId = ''
+    this.token = ''
   }
 
-  getTrackDetails(trackId) {
-    throw new Error("Method 'getTrackDetails' must be implemented.");
+  getTrackDetails (trackId) {
+    throw new Error("Method 'getTrackDetails' must be implemented.")
   }
 }
 
-export default QueryTrackDetails;
+export default QueryTrackDetails
