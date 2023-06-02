@@ -4,6 +4,7 @@ on: [push, pull_request]
 
 jobs:
   test:
+    name: Details Extraction Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -15,7 +16,11 @@ jobs:
           node-version: "19.x"
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          echo "Installing dependencies"
+          npm install
 
       - name: Run Jest tests
-        run: node --experimental-vm-modules node_modules/jest/bin/jest.js
+        run: |
+          echo "Running details extraction tests"
+          node --experimental-vm-modules node_modules/jest/bin/jest.js
