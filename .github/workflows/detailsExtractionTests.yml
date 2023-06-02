@@ -16,11 +16,7 @@ jobs:
           node-version: "19.x"
 
       - name: Install dependencies
-        run: |
-          echo "Installing dependencies"
-          npm install
+        run: npm install
 
       - name: Run Jest tests
-        run: |
-          echo "Running details extraction tests"
-          node --experimental-vm-modules node_modules/jest/bin/jest.js
+        run: node --experimental-vm-modules node_modules/jest/bin/jest.js
