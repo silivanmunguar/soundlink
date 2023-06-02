@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "jest --verbose",
-    "lint": "standard --fix"
+    "lint-fix": "standard --fix"
   },
   "keywords": [],
   "author": "",
