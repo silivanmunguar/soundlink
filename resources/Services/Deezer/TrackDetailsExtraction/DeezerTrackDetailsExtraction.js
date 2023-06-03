@@ -68,11 +68,3 @@ class DeezerTrackDetailsExtraction extends TrackDetailsExtraction {
 
 export default DeezerTrackDetailsExtraction
 
-// test
-// const deezerTrackDetailsExtraction = new DeezerTrackDetailsExtraction()
-// deezerTrackDetailsExtraction
-//   .getTrackDetails('v7LvtVo1wQq7tJnK6')
-//   .then((trackDetails) => {
-//     console.log('trackDetails :', trackDetails)
-//   })
-//   .catch((error) => console.error(error))
