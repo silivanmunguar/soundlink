@@ -1,11 +1,11 @@
 {
   "name": "soundlink",
   "version": "1.0.0",
-  "description": "Share your music with friends across different music platforms.",
+  "description": "Share your music with friends across different music platforms",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "jest --verbose",
+    "test": " node --experimental-vm-modules node_modules/jest/bin/jest.js --verbose",
     "lint-fix": "standard --fix"
   },
   "keywords": [],
