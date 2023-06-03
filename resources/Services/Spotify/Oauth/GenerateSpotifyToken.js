@@ -31,12 +31,12 @@ const EXPIRATION = 36000
         returned. If the token is no longer valid, a new token is generated.
 */
 class GenerateSpotifyToken {
-  constructor() {
+  constructor () {
     this.client_id = process.env.SPOTIFY_CLIENT_ID
     this.client_secret = process.env.SPOTIFY_CLIENT_SECRET
   }
 
-  async getToken() {
+  async getToken () {
     const url = process.env.SPOTIFY_API_TOKEN_GENERATOR_URL
     const headers = {
       'Content-Type': 'application/x-www-form-urlencoded'
