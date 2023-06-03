@@ -1,7 +1,8 @@
 import fetch from 'node-fetch'
 
-let TOKEN = null
-let TIME_STAMP = null
+let TOKEN
+let TIME_STAMP
+const EXPIRATION = 36000
 
 /*
     This class is used to generate a token for the Spotify API. The token is
@@ -30,12 +31,12 @@ let TIME_STAMP = null
         returned. If the token is no longer valid, a new token is generated.
 */
 class GenerateSpotifyToken {
-  constructor () {
+  constructor() {
     this.client_id = process.env.SPOTIFY_CLIENT_ID
     this.client_secret = process.env.SPOTIFY_CLIENT_SECRET
   }
 
-  async getToken () {
+  async getToken() {
     const url = process.env.SPOTIFY_API_TOKEN_GENERATOR_URL
     const headers = {
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -49,7 +50,7 @@ class GenerateSpotifyToken {
     })
 
     // Check if the token is still valid
-    if (TOKEN !== null && Date.now() - TIME_STAMP < 3600000) {
+    if (TOKEN !== null && Date.now() - TIME_STAMP < EXPIRATION) {
       return TOKEN
     }
 
