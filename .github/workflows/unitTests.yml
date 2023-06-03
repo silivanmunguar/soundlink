@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Use Node.js 19.x
       uses: actions/setup-node@v2
@@ -19,7 +19,8 @@ jobs:
       run: npm install
 
     - name: Set environment variables
-      run: ./scripts/generateSecrets.sh
+      working-directory: .github/workflows/scripts
+      run: ./generateSecrets.sh
       # env:
         # The following secret values are set in the repository settings
         #TODO: Add the secrets to the repository settings
