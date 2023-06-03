@@ -14,15 +14,17 @@ class DeezerTrackDetailsExtraction extends TrackDetailsExtraction {
 
     // Set the url
     const url = `${process.env.DEEZER_API_TRACK_QUERY_URL}${this.trackId}`
+
+    // Set the response
     let response
 
     // Set the timeout
-    const TIMEOUT = 5000
+    // const TIMEOUT = 5000
 
     // Fetch the track details
     try {
       response = await fetch(url, {
-        timeout: TIMEOUT
+        // timeout: TIMEOUT
       })
     } catch (error) {
       console.error(`Error fetching track details: ${error}`)

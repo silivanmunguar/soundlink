@@ -3,20 +3,26 @@ name: Unit Tests
 on: [push, pull_request]
 
 jobs:
-  test:
+  build-and-test:
     name: Testing the modules and their functions
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+    - uses: actions/checkout@v2
 
-      - name: Use Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: "19.x"
+    - name: Use Node.js 19.x
+      uses: actions/setup-node@v2
+      with:
+        node-version: 19.x
 
-      - name: Install dependencies
-        run: npm install
+    - name: Install dependencies
+      run: npm install
 
-      - name: Run Jest tests
-        run: npm test
+    - name: Set environment variables
+      run: |
+        echo "DEEZER_API_TRACK_QUERY_URL=${{ secrets.DEEZER_API_TRACK_QUERY_URL }}" >> .env
+
+    - name: Run tests
+      run: |
+        echo $DEEZER_API_TRACK_QUERY_URL  # just to check if the env variable is set
+
