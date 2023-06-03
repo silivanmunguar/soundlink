@@ -69,4 +69,3 @@ class DeezerTrackDetailsExtraction extends TrackDetailsExtraction {
 }
 
 export default DeezerTrackDetailsExtraction
-

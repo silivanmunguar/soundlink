@@ -19,10 +19,9 @@ jobs:
       run: npm install
 
     - name: Set environment variables
-      run: |
-        echo "DEEZER_API_TRACK_QUERY_URL=${{ secrets.DEEZER_API_TRACK_QUERY_URL }}" >> .env
-
-    - name: Run tests
-      run: |
-        echo $DEEZER_API_TRACK_QUERY_URL  # just to check if the env variable is set
-
+      env:
+        DEEZER_API_TRACK_QUERY_URL: ${{ secrets.DEEZER_API_TRACK_QUERY_URL }}
+      run: echo "DEEZER_API_TRACK_QUERY_URL=$DEEZER_API_TRACK_QUERY_URL" >> $GITHUB_ENV
+      
+    - name: Run unit tests
+      run: npm test
