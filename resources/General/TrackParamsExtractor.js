@@ -57,22 +57,8 @@ class TrackParamsExtractor {
     )
 
     // Get the track id
-    /** ______________________________________________________________________________
-     *
-     * MY SOLUTION
-     * const lastSlashIndex = this.sharedUrl.lastIndexOf("/");
-     * const trackId = this.sharedUrl.substring(lastSlashIndex + 1).split("?")[0];
-     * _________________________________________________________________________________
-     *
-     * COPILOT thinks this is more efficient. However, it is less readable.
-     * _________________________________________________________________________________
-     */
     const lastSlashIndex = this.sharedUrl.lastIndexOf('/')
-    const questionMarkIndex = this.sharedUrl.indexOf('?', lastSlashIndex)
-    const trackId = this.sharedUrl.substring(
-      lastSlashIndex + 1,
-      questionMarkIndex !== -1 ? questionMarkIndex : undefined
-    )
+    const trackId = this.sharedUrl.substring(lastSlashIndex + 1).split('?')[0]
 
     // Set the track params
     this._trackParams = {

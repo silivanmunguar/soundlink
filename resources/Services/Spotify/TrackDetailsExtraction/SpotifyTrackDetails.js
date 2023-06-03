@@ -1,4 +1,4 @@
-import QueryTrackDetails from '../../../Interfaces/QueryTrackDetails.js'
+import TrackDetailsExtraction from '../../../Interfaces/TrackDetailsExtraction.js'
 import GenerateSpotifyToken from '../Oauth/GenerateSpotifyToken.js'
 
 /**
@@ -26,7 +26,7 @@ import GenerateSpotifyToken from '../Oauth/GenerateSpotifyToken.js'
           console.error(error);
         });
 */
-class SpotifyTrackDetails extends QueryTrackDetails {
+class SpotifyTrackDetails extends TrackDetailsExtraction {
   async getTrackDetails (trackId) {
     this.trackId = trackId
 

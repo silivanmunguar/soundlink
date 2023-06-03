@@ -1,7 +1,7 @@
-import QueryTrackDetails from '../../../Interfaces/TrackDetails.js'
+import TrackDetailsExtraction from '../../../Interfaces/TrackDetails.js'
 
 // This class is responsible for getting the track details from Tidal API given a track id.
-class TidalTrackDetails extends QueryTrackDetails {
+class TidalTrackDetails extends TrackDetailsExtraction {
   async getTrackDetails (trackId) {
     this.trackId = trackId
 
