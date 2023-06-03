@@ -1,0 +1,41 @@
+name: Unit Tests
+
+on: [push, pull_request]
+
+jobs:
+  build-and-test:
+    name: Testing the modules and their functions
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Use Node.js 19.x
+      uses: actions/setup-node@v2
+      with:
+        node-version: 19.x
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Set environment variables
+      run: ./scripts/generateSecrets.sh
+      # env:
+        # The following secret values are set in the repository settings
+        #TODO: Add the secrets to the repository settings
+        #TODO: Create a script to generate the secrets instead of hardcoding them
+      #   DEEZER_API_TRACK_QUERY_URL: ${{ secrets.DEEZER_API_TRACK_QUERY_URL }}
+      #   SPOTIFY_API_TOKEN_GENERATOR_URL: ${{ secrets.SPOTIFY_API_TOKEN_GENERATOR_URL }}
+      #   SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
+      #   SPOTIFY_API_TRACK_QUERY_URL: ${{ secrets.SPOTIFY_API_TRACK_QUERY_URL }}
+      #   SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
+      # run: |
+      #   echo "DEEZER_API_TRACK_QUERY_URL=$DEEZER_API_TRACK_QUERY_URL" >> $GITHUB_ENV
+      #   echo "SPOTIFY_API_TOKEN_GENERATOR_URL=$SPOTIFY_API_TOKEN_GENERATOR_URL" >> $GITHUB_ENV
+      #   echo "SPOTIFY_CLIENT_ID=$SPOTIFY_CLIENT_ID" >> $GITHUB_ENV
+      #   echo "SPOTIFY_CLIENT_SECRET=$SPOTIFY_CLIENT_SECRET" >> $GITHUB_ENV
+      #   echo "SPOTIFY_API_TRACK_QUERY_URL=$SPOTIFY_API_TRACK_QUERY_URL" >> $GITHUB_ENV
+
+    - name: Run unit tests
+      run: npm test
+
