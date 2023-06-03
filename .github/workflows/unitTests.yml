@@ -21,11 +21,11 @@ jobs:
     - name: Set environment variables
       working-directory: .github/workflows/scripts
       run: ./generateSecrets.sh
-      # env:
+      env:
         # The following secret values are set in the repository settings
         #TODO: Add the secrets to the repository settings
         #TODO: Create a script to generate the secrets instead of hardcoding them
-      #   DEEZER_API_TRACK_QUERY_URL: ${{ secrets.DEEZER_API_TRACK_QUERY_URL }}
+        DEEZER_API_TRACK_QUERY_URL: ${{ secrets.DEEZER_API_TRACK_QUERY_URL }}
       #   SPOTIFY_API_TOKEN_GENERATOR_URL: ${{ secrets.SPOTIFY_API_TOKEN_GENERATOR_URL }}
       #   SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
       #   SPOTIFY_API_TRACK_QUERY_URL: ${{ secrets.SPOTIFY_API_TRACK_QUERY_URL }}
