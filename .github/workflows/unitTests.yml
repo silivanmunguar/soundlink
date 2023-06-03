@@ -30,8 +30,7 @@ jobs:
         SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
         SPOTIFY_API_TRACK_QUERY_URL: ${{ secrets.SPOTIFY_API_TRACK_QUERY_URL }}
         SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
-      run: |
-        run: ./generateSecrets.sh
+      run: ./generateSecrets.sh
       
     - name: Run unit tests
       run: npm test
