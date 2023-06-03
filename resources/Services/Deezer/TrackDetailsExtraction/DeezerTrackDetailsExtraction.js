@@ -2,35 +2,56 @@ import TrackDetailsExtraction from '../../../Interfaces/TrackDetailsExtraction.j
 import DeezerTrackDetailsExtractionHelper from './DeezerTrackDetailsExtractionHelper.js'
 
 class DeezerTrackDetailsExtraction extends TrackDetailsExtraction {
-  async getTrackDetails (trackId) {
+  async getTrackDetails(trackId) {
     /* TODO: Find a direct way to get track details from Deezer API
     currently you are quering the share url and then extracting the track
     url that contains the id and then using the id to quesry track details using a helper class
     */
-    const helper = new DeezerTrackDetailsExtractionHelper()
-    this.trackId = await helper.getTrackId(trackId)
+    // Get the track id
+    this.trackId = await new DeezerTrackDetailsExtractionHelper().getTrackId(
+      trackId
+    )
 
     // Set the url
     const url = `${process.env.DEEZER_API_TRACK_QUERY_URL}${this.trackId}`
+    let response
 
     // Set the timeout
     const TIMEOUT = 5000
 
-    // Get the response
-    const response = await fetch(url, {
-      timeout: TIMEOUT
-    })
-
-    // Check if the response is valid
-    if (response.status !== 200) {
-      const message = await response.json()
-      throw new Error(message.error.message)
+    // Fetch the track details
+    try {
+      response = await fetch(url, {
+        timeout: TIMEOUT
+      })
+    } catch (error) {
+      console.error(`Error fetching track details: ${error}`)
+      return null
     }
 
-    // Get the track details
-    const responseJSON = await response.json()
+    // Check the response
+    if (!response || response.status !== 200) {
+      console.error(`Error fetching track details: ${response.statusText}`)
+      return null
+    }
 
-    // Set the track details
+    // Set the response
+    let responseJSON
+
+    // Parse the response
+    try {
+      responseJSON = await response.json()
+    } catch (error) {
+      console.error(`Error parsing track details: ${error}`)
+      return null
+    }
+
+    // check if the response is valid
+    if (responseJSON.id === undefined) {
+      console.log('Error:', responseJSON.error.message)
+      return null
+    }
+
     this.trackDetails = {
       title: responseJSON.title,
       artist: responseJSON.artist.name,
@@ -46,3 +67,12 @@ class DeezerTrackDetailsExtraction extends TrackDetailsExtraction {
 }
 
 export default DeezerTrackDetailsExtraction
+
+// test
+// const deezerTrackDetailsExtraction = new DeezerTrackDetailsExtraction()
+// deezerTrackDetailsExtraction
+//   .getTrackDetails('v7LvtVo1wQq7tJnK6')
+//   .then((trackDetails) => {
+//     console.log('trackDetails :', trackDetails)
+//   })
+//   .catch((error) => console.error(error))

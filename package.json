@@ -1,7 +1,7 @@
 {
   "name": "soundlink",
   "version": "1.0.0",
-  "description": "Share your music with friends across different music platforms.",
+  "description": "Share your music with friends across different music platforms",
   "main": "index.js",
   "type": "module",
   "scripts": {

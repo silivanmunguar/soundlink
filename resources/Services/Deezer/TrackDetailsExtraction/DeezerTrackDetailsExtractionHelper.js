@@ -1,9 +1,9 @@
 class DeezerTrackDetailsExtractionHelper {
-  constructor () {
+  constructor() {
     this._trackId = null
   }
 
-  async getTrackId (trackId) {
+  async getTrackId(trackId) {
     // Get the string at the end of the shared url that.
     const tempTrackId = trackId
 
@@ -24,6 +24,8 @@ class DeezerTrackDetailsExtractionHelper {
     // Get the track id from the track url.
     const lastSlashIndex = url.lastIndexOf('/')
     this._trackId = url.substring(lastSlashIndex + 1).split('?')[0]
+
+    // console.log('Helper-trackId :', this._trackId)
 
     return this._trackId
   }
