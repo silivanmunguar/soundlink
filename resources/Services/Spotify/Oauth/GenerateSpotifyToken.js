@@ -1,12 +1,13 @@
-import fetch from 'node-fetch'
-
-let TOKEN
-let TIME_STAMP
-const EXPIRATION = 36000
-
 /*
     This class is used to generate a token for the Spotify API. The token is
     used to authenticate the user and to get access to the Spotify API.
+
+    It is a singleton class. This means that only one instance of this class
+    can be created. This is done to prevent multiple tokens from being
+    generated. It is using a static instance of the proper to store the
+    singleton instance. In the constructor the instance is checked. If the
+    instance is already set, the instance is returned. If the instance is not
+    set, the instance is set to this instance.
 
     Attributes:
         client_id (string): The client id of your spotify app.
@@ -32,49 +33,63 @@ const EXPIRATION = 36000
 */
 class GenerateSpotifyToken {
   constructor () {
+    if (GenerateSpotifyToken.instance) {
+      return GenerateSpotifyToken.instance
+    }
+
+    GenerateSpotifyToken.instance = this
+
     this.client_id = process.env.SPOTIFY_CLIENT_ID
     this.client_secret = process.env.SPOTIFY_CLIENT_SECRET
+
+    // this.client_secret = `${process.env.SPOTIFY_CLIENT_SECRET}+23`
+
+    this.TOKEN = null
+    this.TIME_STAMP = null
+    this.EXPIRATION = 3600000 // 1 hour
   }
 
   async getToken () {
-    const url = process.env.SPOTIFY_API_TOKEN_GENERATOR_URL
-    const headers = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-
-    // Set the data
-    const data = new URLSearchParams({
-      grant_type: 'client_credentials',
-      client_id: this.client_id,
-      client_secret: this.client_secret
-    })
-
     // Check if the token is still valid
-    if (TOKEN !== null && Date.now() - TIME_STAMP < EXPIRATION) {
-      return TOKEN
+    if (this.TOKEN && Date.now() - this.TIME_STAMP < this.EXPIRATION) {
+      return this.TOKEN
     }
+
+    // Set the url
+    // const url = process.env.SPOTIFY_API_TOKEN_GENERATOR_URL
+    const url = 'https://accounts.spotify.com/api/token'
 
     // Get the response
-    const response = await fetch(url, {
+    const response = await global.fetch(url, {
       method: 'POST',
-      headers,
-      body: data
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: new URLSearchParams({
+        grant_type: 'client_credentials',
+        client_id: this.client_id,
+        client_secret: this.client_secret
+      })
     })
 
-    // Check if the response is valid
+    const data = await response.json()
+
     if (response.status !== 200) {
-      const message = await response.json()
-      throw new Error(message.error.message)
+      const errorMessage = data.error
+      // ? data.error.message
+      // : 'Failed to get access token'
+      throw new Error(errorMessage)
     }
 
-    // Get the token
-    const json = await response.json()
-    TOKEN = json.access_token
-    TIME_STAMP = Date.now()
+    // Get the token and set the time stamp
+    this.TOKEN = data.access_token
+    this.TIME_STAMP = Date.now()
 
     // Return the token
-    return TOKEN
+    return this.TOKEN
   }
 }
 
-export default GenerateSpotifyToken
+const SpotifyTokenGenerator = new GenerateSpotifyToken()
+
+export default SpotifyTokenGenerator

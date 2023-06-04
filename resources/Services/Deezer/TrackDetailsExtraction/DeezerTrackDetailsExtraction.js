@@ -27,14 +27,12 @@ class DeezerTrackDetailsExtraction extends TrackDetailsExtraction {
         // timeout: TIMEOUT
       })
     } catch (error) {
-      console.error(`Error fetching track details: ${error}`)
-      return null
+      throw new Error(`Error fetching track details: ${error}`)
     }
 
     // Check the response
     if (!response || response.status !== 200) {
-      console.error(`Error fetching track details: ${response.statusText}`)
-      return null
+      throw new Error(`Error fetching track details: ${response.statusText}`)
     }
 
     // Set the response
@@ -44,14 +42,12 @@ class DeezerTrackDetailsExtraction extends TrackDetailsExtraction {
     try {
       responseJSON = await response.json()
     } catch (error) {
-      console.error(`Error parsing track details: ${error}`)
-      return null
+      throw new Error(`Error parsing track details: ${error}`)
     }
 
     // check if the response is valid
     if (responseJSON.id === undefined) {
-      console.log('Error:', responseJSON.error.message)
-      return null
+      throw new Error(`Error: ${responseJSON.error.message}`)
     }
 
     this.trackDetails = {

@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --verbose",
+    "test": "standard --fix && node --experimental-vm-modules node_modules/jest/bin/jest.js --verbose",
     "fix": "standard --fix"
   },
   "keywords": [],
@@ -16,6 +16,6 @@
   },
   "devDependencies": {
     "jest": "^29.5.0",
-    "standard": "^17.1.0"
+    "standard": "@latest"
   }
 }

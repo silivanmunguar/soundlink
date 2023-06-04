@@ -14,9 +14,9 @@ class DeezerTrackDetailsExtractionHelper {
     const rawTrackUrl = `${process.env.DEEZER_SHARED_TRACK_URL}${tempTrackId}`
 
     // Load the raw track url to get the track url that contains the track id.
-    const response = await fetch(rawTrackUrl).catch((error) =>
-      console.error(error)
-    )
+    const response = await fetch(rawTrackUrl).catch((error) => {
+      throw new Error(`Helper method could not get numeric id: ${error}`)
+    })
 
     // Get the track url that contains the track id.
     const url = response.url

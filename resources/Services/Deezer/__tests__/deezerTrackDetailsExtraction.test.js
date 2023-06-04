@@ -45,23 +45,47 @@ describe('Testing DeezerTrackDetailsExtraction', () => {
     expect(getTrackIdMock).toHaveBeenCalledWith(trackId)
   })
 
-  it('should return null for an invalid trackId', async () => {
-    const trackId = null
+  it('should throw an error for an invalid input', async () => {
+    const trackId = 'SDSDS'
 
     // Mock the getTrackId method of DeezerTrackDetailsExtractionHelper
     const getTrackIdMock = jest.spyOn(
       DeezerTrackDetailsExtractionHelper.prototype,
       'getTrackId'
     )
-    getTrackIdMock.mockImplementation(() => Promise.resolve(null))
 
-    const trackDetails = await deezerTrackDetailsExtraction.getTrackDetails(
-      trackId
-    )
+    // Mock the getTrackId method throwing an error
+    getTrackIdMock.mockImplementation(() => {
+      throw new Error('An error occurred')
+    })
 
-    expect(trackDetails).toBeNull()
+    await expect(
+      deezerTrackDetailsExtraction.getTrackDetails(trackId)
+    ).rejects.toThrow()
+
     expect(getTrackIdMock).toHaveBeenCalledWith(trackId)
   })
+  // it('should throw an error for an invalid trackId', async () => {
+  //   const trackId = 'invalidTrackId'
+
+  //   // Mock the getTrackId method of DeezerTrackDetailsExtractionHelper
+  //   const getTrackIdMock = jest.spyOn(
+  //     DeezerTrackDetailsExtractionHelper.prototype,
+  //     'getTrackId'
+  //   )
+
+  //   // Mock the getTrackId method throwing an error
+  //   getTrackIdMock.mockImplementation(() => {
+  //     throw new Error('An error occurred')
+  //   })
+
+  //   const trackDetails = await deezerTrackDetailsExtraction.getTrackDetails(
+  //     trackId
+  //   )
+
+  //   expect(trackDetails).toBeNull()
+  //   expect(getTrackIdMock).toHaveBeenCalledWith(trackId)
+  // })
 })
 
 describe('Testing DeezerTrackDetailsExtractionHelper', () => {
