@@ -16,6 +16,6 @@
   },
   "devDependencies": {
     "jest": "^29.5.0",
-    "standard": "@latest"
+    "standard": "17.1.0"
   }
 }

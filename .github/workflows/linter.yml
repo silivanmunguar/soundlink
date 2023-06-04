@@ -45,7 +45,7 @@ jobs:
       # Install Standard Linter #
       ###############################
       - name: Install Standard js Linter
-        run: npm install standard@latest --save-dev --save-exact
+        run: npm install standard --save-dev --save-exact
 
       - name: Apply Standard --fix to code base
         run: npx standard --fix
