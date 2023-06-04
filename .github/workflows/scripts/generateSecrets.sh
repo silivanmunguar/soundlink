@@ -1,4 +1,4 @@
-#!/bin/bash
+!/bin/bash
 
 # Add secrets to repository settings
 {
