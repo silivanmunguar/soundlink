@@ -1,15 +1,15 @@
-import TrackDetailsExtraction from '../../../Interfaces/TrackDetailsExtraction.js'
+import TrackDetailsExtraction from '../../../interfaces/TrackDetailsExtraction.js'
 import DeezerTrackDetailsExtractionHelper from './DeezerTrackDetailsExtractionHelper.js'
 
 class DeezerTrackDetailsExtraction extends TrackDetailsExtraction {
-  async getTrackDetails (trackId) {
+  async getTrackDetails(trackId) {
     /* TODO: Find a direct way to get track details from Deezer API
     currently you are quering the share url and then extracting the track
     url that contains the id and then using the id to quesry track details using a helper class
     */
     // Get the track id
     this.trackId = await new DeezerTrackDetailsExtractionHelper().getTrackId(
-      trackId
+      trackId,
     )
 
     // Set the url
@@ -54,7 +54,7 @@ class DeezerTrackDetailsExtraction extends TrackDetailsExtraction {
       title: responseJSON.title,
       artist: responseJSON.artist.name,
       album: responseJSON.album.title,
-      externalUrl: responseJSON.link
+      externalUrl: responseJSON.link,
     }
 
     // Return the track details

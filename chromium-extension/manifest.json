@@ -1,0 +1,17 @@
+{
+  "name": "Soundlink",
+  "manifest_version": 3,
+  "description": "Share music with your friends across all music streaming platforms.",
+  "version": "1.0",
+  "permissions": ["tabs"],
+  "background": {
+    "service_worker": "./background.js"
+  },
+  "action": {
+    "default_popup": "./popup/index.html",
+    "default_icon": "./assets/icons/soundlink.png"
+  },
+  "icons": {
+    "128": "./assets/icons/soundlink.png"
+  }
+}
