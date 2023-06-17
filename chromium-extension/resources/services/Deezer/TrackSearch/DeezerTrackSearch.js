@@ -1,7 +1,7 @@
-import TrackSearch from '../../../Interfaces/TrackSearch.js'
+import TrackSearch from '../../../interfaces/TrackSearch.js'
 
 class DeezerTrackSearch extends TrackSearch {
-  async searchForTrack (incomingTrackDetails) {
+  async searchForTrack(incomingTrackDetails) {
     this.incomingTrackDetails = incomingTrackDetails
     this.searchUrl = `${process.env.DEEZER_SEARCH_URL}artist:"${this.incomingTrackDetails.artist}" track:"${this.incomingTrackDetails.title}"`
 
@@ -10,7 +10,7 @@ class DeezerTrackSearch extends TrackSearch {
 
     // Get the response
     const response = await fetch(this.searchUrl, {
-      timeout: TIMEOUT
+      timeout: TIMEOUT,
     })
 
     // Check if the response is valid

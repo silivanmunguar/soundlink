@@ -1,12 +1,31 @@
 {
   "name": "Soundlink",
+  "version": "1.0",
   "manifest_version": 3,
   "description": "Share music with your friends across all music streaming platforms.",
-  "version": "1.0",
-  "permissions": ["tabs"],
   "background": {
-    "service_worker": "./background.js"
+    "service_worker": "service_worker.js"
   },
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "block_music_services",
+        "enabled": true,
+        "path": "block_music_services.json"
+      }
+    ]
+  },
+  "permissions": [
+    "declarativeNetRequest",
+    "declarativeNetRequestFeedback",
+    "declarativeNetRequestWithHostAccess"
+  ],
+  "host_permissions": [
+    "https://open.spotify.com/",
+    "https://music.youtube.com/",
+    "https://music.apple.com/",
+    "https://www.deezer.com/"
+  ],
   "action": {
     "default_popup": "./popup/index.html",
     "default_icon": "./assets/icons/soundlink.png"

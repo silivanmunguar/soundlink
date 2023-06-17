@@ -1,4 +1,4 @@
-import TrackDetailsExtraction from '../../../Interfaces/TrackDetailsExtraction.js'
+import TrackDetailsExtraction from '../../../interfaces/TrackDetailsExtraction.js'
 import GenerateSpotifyToken from '../Oauth/GenerateSpotifyToken.js'
 
 /**
@@ -27,7 +27,7 @@ import GenerateSpotifyToken from '../Oauth/GenerateSpotifyToken.js'
         });
 */
 class SpotifyTrackDetails extends TrackDetailsExtraction {
-  async getTrackDetails (trackId) {
+  async getTrackDetails(trackId) {
     this.trackId = trackId
 
     // Get the token
@@ -39,7 +39,7 @@ class SpotifyTrackDetails extends TrackDetailsExtraction {
 
     // Set the headers
     const headers = {
-      Authorization: `Bearer ${this.token}`
+      Authorization: `Bearer ${this.token}`,
     }
 
     // Set the timeout
@@ -48,7 +48,7 @@ class SpotifyTrackDetails extends TrackDetailsExtraction {
     // Get the response
     const response = await fetch(url, {
       headers,
-      timeout: TIMEOUT
+      timeout: TIMEOUT,
     })
 
     // Check if the response is valid
