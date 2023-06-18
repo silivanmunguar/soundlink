@@ -1,5 +1,6 @@
-import TrackDetailsExtraction from '../../../Interfaces/TrackDetailsExtraction.js'
+import TrackDetailsExtraction from '../../../interfaces/TrackDetailsExtraction.js'
 import GenerateSpotifyToken from '../Oauth/GenerateSpotifyToken.js'
+import dotenv from 'dotenv'
 
 /**
  * This class is responsible for getting the track details from Spotify API given a track id.
@@ -27,7 +28,11 @@ import GenerateSpotifyToken from '../Oauth/GenerateSpotifyToken.js'
         });
 */
 class SpotifyTrackDetails extends TrackDetailsExtraction {
-  async getTrackDetails (trackId) {
+  async getTrackDetails(trackId) {
+    // Get the environment variables
+    dotenv.config()
+
+    // Set the track id
     this.trackId = trackId
 
     // Get the token
@@ -39,7 +44,7 @@ class SpotifyTrackDetails extends TrackDetailsExtraction {
 
     // Set the headers
     const headers = {
-      Authorization: `Bearer ${this.token}`
+      Authorization: `Bearer ${this.token}`,
     }
 
     // Set the timeout
@@ -48,7 +53,7 @@ class SpotifyTrackDetails extends TrackDetailsExtraction {
     // Get the response
     const response = await fetch(url, {
       headers,
-      timeout: TIMEOUT
+      timeout: TIMEOUT,
     })
 
     // Check if the response is valid
@@ -59,11 +64,11 @@ class SpotifyTrackDetails extends TrackDetailsExtraction {
 
     // Get the track details
     const responseJSON = await response.json()
+    this.trackDetails.id = responseJSON.id
     this.trackDetails.title = responseJSON.name
     this.trackDetails.artist = responseJSON.artists[0].name
     this.trackDetails.album = responseJSON.album.name
     this.trackDetails.externalUrl = responseJSON.external_urls.spotify
-
     return this.trackDetails
   }
 }

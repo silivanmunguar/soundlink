@@ -1,3 +1,5 @@
+import dotenv from 'dotenv'
+
 /*
     This class is used to generate a token for the Spotify API. The token is
     used to authenticate the user and to get access to the Spotify API.
@@ -32,7 +34,7 @@
         returned. If the token is no longer valid, a new token is generated.
 */
 class GenerateSpotifyToken {
-  constructor () {
+  constructor() {
     if (GenerateSpotifyToken.instance) {
       return GenerateSpotifyToken.instance
     }
@@ -42,54 +44,63 @@ class GenerateSpotifyToken {
     this.client_id = process.env.SPOTIFY_CLIENT_ID
     this.client_secret = process.env.SPOTIFY_CLIENT_SECRET
 
-    // this.client_secret = `${process.env.SPOTIFY_CLIENT_SECRET}+23`
-
     this.TOKEN = null
     this.TIME_STAMP = null
     this.EXPIRATION = 3600000 // 1 hour
+
+    // Get the environment variables
+    dotenv.config()
   }
 
-  async getToken () {
-    // Check if the token is still valid
-    if (this.TOKEN && Date.now() - this.TIME_STAMP < this.EXPIRATION) {
-      return this.TOKEN
-    }
+  // async getToken() {
+  //   // Check if the token is still valid
+  //   if (this.TOKEN && Date.now() - this.TIME_STAMP < this.EXPIRATION) {
+  //     return this.TOKEN
+  //   }
 
-    // Set the url
-    // const url = process.env.SPOTIFY_API_TOKEN_GENERATOR_URL
-    const url = 'https://accounts.spotify.com/api/token'
+  //   // Set the url
+  //   // const url = process.env.SPOTIFY_API_TOKEN_GENERATOR_URL
+  //   const url = 'https://accounts.spotify.com/api/token'
 
-    // Get the response
-    const response = await global.fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: new URLSearchParams({
-        grant_type: 'client_credentials',
-        client_id: this.client_id,
-        client_secret: this.client_secret
-      })
-    })
+  //   console.log(this.client_id)
+  //   console.log(this.client_secret)
 
-    const data = await response.json()
+  //   // Get the response
+  //   const response = await global.fetch(url, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/x-www-form-urlencoded',
+  //     },
+  //     body: new URLSearchParams({
+  //       grant_type: 'client_credentials',
+  //       client_id: this.client_id,
+  //       client_secret: this.client_secret,
+  //     }),
+  //   })
 
-    if (response.status !== 200) {
-      const errorMessage = data.error
-      // ? data.error.message
-      // : 'Failed to get access token'
-      throw new Error(errorMessage)
-    }
+  //   const data = await response.json()
 
-    // Get the token and set the time stamp
-    this.TOKEN = data.access_token
-    this.TIME_STAMP = Date.now()
+  //   if (response.status !== 200) {
+  //     const errorMessage = data.error
+  //     // ? data.error.message
+  //     // : 'Failed to get access token'
+  //     throw new Error(errorMessage)
+  //   }
 
-    // Return the token
-    return this.TOKEN
+  //   // Get the token and set the time stamp
+  //   this.TOKEN = data.access_token
+  //   this.TIME_STAMP = Date.now()
+
+  //   // Return the token
+  //   return this.TOKEN
+  // }
+
+  getToken() {
+    return 'BQCc4ITnMzQ8KoRl04eT9j_DTUZasJIXbcJ-_4HjOhszW0ESGACHHjabR-s1uJ7xY2GbiKR6zbMkCG43QLSuXu3uKVjx4VCyjTnhGb45Fbjp2SLvQ6k'
   }
 }
 
-const SpotifyTokenGenerator = new GenerateSpotifyToken()
+// const SpotifyTokenGenerator = new GenerateSpotifyToken()
 
-export default SpotifyTokenGenerator
+// export default SpotifyTokenGenerator
+export default GenerateSpotifyToken

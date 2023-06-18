@@ -1,8 +1,8 @@
-import TrackSearch from '../../../Interfaces/TrackSearch.js'
+import TrackSearch from '../../../interfaces/TrackSearch.js'
 import GenerateSpotifyToken from '../Oauth/GenerateSpotifyToken.js'
 
 class SpotifyTrackSearch extends TrackSearch {
-  async searchForTrack (incomingTrackDetails) {
+  async searchForTrack(incomingTrackDetails) {
     // Set the incoming track details
     this.incomingTrackDetails = incomingTrackDetails
 
@@ -20,7 +20,7 @@ class SpotifyTrackSearch extends TrackSearch {
 
     // Set the headers
     const headers = {
-      Authorization: `Bearer ${this.token}`
+      Authorization: `Bearer ${this.token}`,
     }
 
     // Set the timeout
@@ -29,7 +29,7 @@ class SpotifyTrackSearch extends TrackSearch {
     // Get the response
     const response = await fetch(this.searchUrl, {
       headers,
-      timeout: TIMEOUT
+      timeout: TIMEOUT,
     })
 
     // Check if the response is valid

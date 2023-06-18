@@ -4,3 +4,6 @@ node_modules/
 .vscode/
 index.js
 .vscode/settings.json
+.env
+installed_packages.md
+```
