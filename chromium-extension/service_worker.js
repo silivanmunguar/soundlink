@@ -8,5 +8,4 @@ chrome.declarativeNetRequest.onRuleMatchedDebug.addListener((e) => {
   })
 })
 
-console.log('pasth', chrome.runtime.getURL('/homepage/index.html'))
 console.log('Service Worker Loaded...')

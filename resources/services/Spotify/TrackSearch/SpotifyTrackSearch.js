@@ -1,8 +1,12 @@
 import TrackSearch from '../../../interfaces/TrackSearch.js'
 import GenerateSpotifyToken from '../Oauth/GenerateSpotifyToken.js'
+import dotenv from 'dotenv'
 
 class SpotifyTrackSearch extends TrackSearch {
   async searchForTrack(incomingTrackDetails) {
+    // Get the environment variables
+    dotenv.config()
+
     // Set the incoming track details
     this.incomingTrackDetails = incomingTrackDetails
 
@@ -10,9 +14,9 @@ class SpotifyTrackSearch extends TrackSearch {
     const surfixParams = '&type=track&limit=1'
 
     // Set the search url
-    this.searchUrl = `${process.env.SPOTIFY_SEARCH_URL}+${this.incomingTrackDetails.artist}+${this.incomingTrackDetails.title}${surfixParams}`
+    this.searchUrl = `${process.env.SPOTIFY_SEARCH_URL}${this.incomingTrackDetails.artist}+${this.incomingTrackDetails.title}${surfixParams}`
 
-    console.log('Search URL: ', this.searchUrl)
+    console.log('Search Url: ', this.searchUrl)
 
     // Get the token
     const tokenGenerator = new GenerateSpotifyToken()
@@ -27,26 +31,34 @@ class SpotifyTrackSearch extends TrackSearch {
     const TIMEOUT = 5000
 
     // Get the response
-    const response = await fetch(this.searchUrl, {
-      headers,
-      timeout: TIMEOUT,
-    })
+    let response
+    try {
+      response = await fetch(this.searchUrl, {
+        headers,
+        timeout: TIMEOUT,
+      })
+    } catch (error) {
+      console.log('Error getting track: ', error)
+    }
 
     // Check if the response is valid
     if (response.status !== 200) {
       const message = await response.json()
-      throw new Error(message.error.message)
+      throw new Error(
+        'searching for track with given trackDetails: ' + response.status,
+      )
     }
 
     // Get the track details
-    const responseJSON = await response.json()
+    response = await response.json()
 
     // Get the track details
-    this.newTrackDetails.title = responseJSON.tracks.items[0].name
-    this.newTrackDetails.artist = responseJSON.tracks.items[0].artists[0].name
-    this.newTrackDetails.album = responseJSON.tracks.items[0].album.name
+    this.newTrackDetails.id = response.tracks.items[0].id
+    this.newTrackDetails.title = response.tracks.items[0].name
+    this.newTrackDetails.artist = response.tracks.items[0].artists[0].name
+    this.newTrackDetails.album = response.tracks.items[0].album.name
     this.newTrackDetails.externalUrl =
-      responseJSON.tracks.items[0].external_urls.spotify
+      response.tracks.items[0].external_urls.spotify
 
     return this.newTrackDetails
   }

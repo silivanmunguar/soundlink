@@ -1,7 +1,12 @@
 import TrackSearch from '../../../interfaces/TrackSearch.js'
+import dotenv from 'dotenv'
 
 class DeezerTrackSearch extends TrackSearch {
   async searchForTrack(incomingTrackDetails) {
+    // Set environment variables
+    dotenv.config()
+
+    // Set the track details
     this.incomingTrackDetails = incomingTrackDetails
     this.searchUrl = `${process.env.DEEZER_SEARCH_URL}artist:"${this.incomingTrackDetails.artist}" track:"${this.incomingTrackDetails.title}"`
 

@@ -1,6 +1,11 @@
+import dotenv from 'dotenv'
+
 class DeezerTrackDetailsExtractionHelper {
   constructor() {
     this._trackId = null
+
+    // Set environment variables
+    dotenv.config()
   }
 
   async getTrackId(trackId) {

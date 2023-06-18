@@ -27,12 +27,12 @@
  * console.log(trackParams.trackId); // logs '3Zwu2K0Qa5sT6teZO0Ql3j'
  */
 class TrackParamsExtractor {
-  constructor () {
+  constructor() {
     this._trackParams = {}
     this.sharedUrl = ''
   }
 
-  extractTrackParams () {
+  extractTrackParams() {
     // Return null if the shared URL is not set
     if (!this.sharedUrl) {
       return null
@@ -51,10 +51,17 @@ class TrackParamsExtractor {
 
     const firstDotIndex = this.sharedUrl.indexOf('.')
     const secondDotIndex = this.sharedUrl.indexOf('.', firstDotIndex + 1)
-    const serviceProvider = this.sharedUrl.substring(
+
+    // Get the service provider
+    let serviceProvider = this.sharedUrl.substring(
       firstDotIndex + 1,
-      secondDotIndex
+      secondDotIndex,
     )
+
+    // adjust for deezer that has a unique share url
+    if (serviceProvider === 'page') {
+      serviceProvider = 'deezer'
+    }
 
     // Get the track id
     const lastSlashIndex = this.sharedUrl.lastIndexOf('/')
@@ -63,7 +70,7 @@ class TrackParamsExtractor {
     // Set the track params
     this._trackParams = {
       serviceProvider,
-      trackId
+      trackId,
     }
 
     // Return the track params

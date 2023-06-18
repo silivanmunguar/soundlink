@@ -91,12 +91,13 @@ class GenerateSpotifyToken {
   //   this.TOKEN = data.access_token
   //   this.TIME_STAMP = Date.now()
 
+  //   console.log('Spotify token: ', this.TOKEN)
   //   // Return the token
   //   return this.TOKEN
   // }
 
   getToken() {
-    return 'BQCc4ITnMzQ8KoRl04eT9j_DTUZasJIXbcJ-_4HjOhszW0ESGACHHjabR-s1uJ7xY2GbiKR6zbMkCG43QLSuXu3uKVjx4VCyjTnhGb45Fbjp2SLvQ6k'
+    return 'BQCdRVEohM10BWQQFOJGhkej9SLqOrwGp0KBBfVX7ut8Qln1lOWLLjla9E4EM6wlQ7JK-amqrGaHOpVEn42ScPcpQXlrxLFVQ8nr4TRYdyQW84y-5i0'
   }
 }
 
