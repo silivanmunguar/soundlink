@@ -35,12 +35,3 @@ class DeezerTrackDetailsExtractionHelper {
 }
 
 export default DeezerTrackDetailsExtractionHelper
-
-// test
-// const deezerTrackDetailsExtractionHelper =
-//   new DeezerTrackDetailsExtractionHelper()
-// deezerTrackDetailsExtractionHelper
-//   .getTrackId('JbTJe9mtGEdh3tqT9')
-//   .then((trackId) => {
-//     console.log('trackId :', trackId)
-//   })
