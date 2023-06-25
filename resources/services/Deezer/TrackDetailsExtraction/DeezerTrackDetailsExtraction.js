@@ -21,7 +21,7 @@ class DeezerTrackDetailsExtraction extends TrackDetailsExtraction {
     // Fetch the track details
     try {
       response = await fetch(url, {
-        timeout: TIMEOUT,
+        timeout: TIMEOUT
       })
     } catch (error) {
       throw new Error(`Error fetching track details: ${error}`)
@@ -51,7 +51,7 @@ class DeezerTrackDetailsExtraction extends TrackDetailsExtraction {
       title: responseJSON.title,
       artist: responseJSON.artist.name,
       album: responseJSON.album.title,
-      externalUrl: responseJSON.link,
+      externalUrl: responseJSON.link
     }
 
     // Return the track details

@@ -29,12 +29,12 @@ import DeezerTrackExtractionHelper from '../services/Deezer/TrackDetailsExtracti
  * console.log(trackParams.trackId); // logs '3Zwu2K0Qa5sT6teZO0Ql3j'
  */
 class TrackParamsExtractor {
-  constructor () {
+  constructor() {
     this._trackParams = {}
     this.sharedUrl = ''
   }
 
-  async extractTrackParams (sharedUrl) {
+  async extractTrackParams(sharedUrl) {
     // Set the shared URL
     this.sharedUrl = sharedUrl
     // Get serice provider
@@ -48,6 +48,16 @@ class TrackParamsExtractor {
      * _________________________________________________________________________________
      */
 
+    // if sharedUrl is not defined, return null
+    if (
+      this.sharedUrl === undefined ||
+      this.sharedUrl === null ||
+      this.sharedUrl === ''
+    ) {
+      throw new Error('sharedUrl is not defined')
+    }
+
+    // Get the first and second dot index
     const firstDotIndex = this.sharedUrl.indexOf('.')
     const secondDotIndex = this.sharedUrl.indexOf('.', firstDotIndex + 1)
 

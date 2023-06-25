@@ -41,15 +41,15 @@ class GenerateSpotifyToken {
 
     GenerateSpotifyToken.instance = this
 
+    // Load the environment variables
+    dotenv.config()
+
     this.client_id = process.env.SPOTIFY_CLIENT_ID
     this.client_secret = process.env.SPOTIFY_CLIENT_SECRET
 
     this.TOKEN = null
     this.TIME_STAMP = null
     this.EXPIRATION = 3600000 // 1 hour
-
-    // Get the environment variables
-    dotenv.config()
   }
 
   async getToken() {
@@ -61,20 +61,17 @@ class GenerateSpotifyToken {
     // Set the url
     const url = process.env.SPOTIFY_API_TOKEN_GENERATOR_URL
 
-    console.log(this.client_id)
-    console.log(this.client_secret)
-
     // Get the response
     const response = await global.fetch(url, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/x-www-form-urlencoded'
       },
       body: new URLSearchParams({
         grant_type: 'client_credentials',
         client_id: this.client_id,
-        client_secret: this.client_secret,
-      }),
+        client_secret: this.client_secret
+      })
     })
 
     const data = await response.json()
@@ -90,13 +87,12 @@ class GenerateSpotifyToken {
     this.TOKEN = data.access_token
     this.TIME_STAMP = Date.now()
 
-    console.log('Spotify token: ', this.TOKEN)
     // Return the token
     return this.TOKEN
   }
 }
 
-// const SpotifyTokenGenerator = new GenerateSpotifyToken()
+const SpotifyTokenGenerator = new GenerateSpotifyToken()
 
-// export default SpotifyTokenGenerator
-export default GenerateSpotifyToken
+export default SpotifyTokenGenerator
+// export default GenerateSpotifyToken

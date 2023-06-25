@@ -6,7 +6,7 @@ import {
   beforeEach,
   afterEach,
   it,
-  expect,
+  expect
 } from '@jest/globals'
 
 describe('Testing DeezerTrackDetailsExtraction', () => {
@@ -26,12 +26,12 @@ describe('Testing DeezerTrackDetailsExtraction', () => {
       title: 'Baby (feat. MARINA & Luis Fonsi)',
       artist: 'Clean Bandit',
       album: 'Baby (feat. MARINA & Luis Fonsi)',
-      externalUrl: 'https://www.deezer.com/track/576754312',
+      externalUrl: 'https://www.deezer.com/track/576754312'
     }
 
     // Try to get the track details
     const trackDetails = await deezerTrackDetailsExtraction.getTrackDetails(
-      trackId,
+      trackId
     )
 
     expect(trackDetails).toEqual(expectedTrackDetails)
@@ -42,7 +42,7 @@ describe('Testing DeezerTrackDetailsExtraction', () => {
 
     // Try to get the track details
     await expect(
-      deezerTrackDetailsExtraction.getTrackDetails(trackId),
+      deezerTrackDetailsExtraction.getTrackDetails(trackId)
     ).rejects.toThrow()
   })
 })
@@ -63,12 +63,12 @@ describe('Testing DeezerTrackDetailsExtractionHelper', () => {
     global.fetch = jest.fn(() =>
       Promise.resolve({
         status: 200,
-        url: `https://www.deezer.com/us/track/${expectedTrackId}`,
-      }),
+        url: `https://www.deezer.com/us/track/${expectedTrackId}`
+      })
     )
 
     const trackId = await deezerTrackDetailsExtractionHelper.getTrackId(
-      sharedTrackId,
+      sharedTrackId
     )
 
     expect(trackId).toEqual(expectedTrackId)

@@ -1,17 +1,19 @@
-import TrackParamsExtractor from '../TrackParamsExtractor'
+import TrackParamsExtractor from '../TrackParamsExtractor.js'
 import { describe, it, expect } from '@jest/globals' // for the linter to stop complaining
 
 // SPOTIFY TESTS
 describe('Testing TrackParamsExtractor to extract serviceProvider and trackId from a shared url', () => {
   describe('SPOTIFY', () => {
-    it('should extract the track parameters from the shared URL', () => {
+    it('should extract the track id and service provider from the shared URL', async () => {
       // Arrange
       const trackParamsExtractor = new TrackParamsExtractor()
-      trackParamsExtractor.sharedUrl =
+      const sharedUrl =
         'https://open.spotify.com/track/7BH6nyhnWTSfMUwwrCYbJF?si=44f5565533da4d74'
 
       // Act
-      const trackParams = trackParamsExtractor.extractTrackParams()
+      const trackParams = await trackParamsExtractor.extractTrackParams(
+        sharedUrl
+      )
 
       // Assert
       expect(trackParams).toEqual({
@@ -20,58 +22,53 @@ describe('Testing TrackParamsExtractor to extract serviceProvider and trackId fr
       })
     })
 
-    it('should return null if the shared URL is not set', () => {
+    it('should throw an error if shared url if not defined', async () => {
       // Arrange
       const trackParamsExtractor = new TrackParamsExtractor()
 
-      // Act
-      const trackParams = trackParamsExtractor.extractTrackParams()
-
-      // Assert
-      expect(trackParams).toBeNull()
+      await expect(trackParamsExtractor.extractTrackParams()).rejects.toThrow()
     })
   })
 
   // DEEZER TESTS
   describe('DEEZER', () => {
-    it('should extract the track parameters from the shared URL', () => {
+    it('should extract the track id and service provider from the shared URL', async () => {
       // Arrange
       const trackParamsExtractor = new TrackParamsExtractor()
-      trackParamsExtractor.sharedUrl =
-        'https://www.deezer.com/track/3135556?utm_source=deezer&utm_content=track-3135556&utm_term=0_1590699905&utm_medium=web'
+      const sharedUrl = 'https://deezer.page.link/JbTJe9mtGEdh3tqT9'
 
       // Act
-      const trackParams = trackParamsExtractor.extractTrackParams()
+      const trackParams = await trackParamsExtractor.extractTrackParams(
+        sharedUrl
+      )
 
       // Assert
       expect(trackParams).toEqual({
         serviceProvider: 'deezer',
-        trackId: '3135556'
+        trackId: '2185137987'
       })
     })
 
-    it('should return null if the shared URL is not set', () => {
+    it('should throw an error if shared url if not defined', async () => {
       // Arrange
       const trackParamsExtractor = new TrackParamsExtractor()
 
-      // Act
-      const trackParams = trackParamsExtractor.extractTrackParams()
-
-      // Assert
-      expect(trackParams).toBeNull()
+      await expect(trackParamsExtractor.extractTrackParams()).rejects.toThrow()
     })
   })
 
   // APPLE MUSIC TESTS
   describe('APPLE MUSIC', () => {
-    it('For Apple Music: should extract the track parameters from the shared URL', () => {
+    it('should extract the track id and service provider from the shared URL', async () => {
       // Arrange
       const trackParamsExtractor = new TrackParamsExtractor()
-      trackParamsExtractor.sharedUrl =
+      const sharedUrl =
         'https://music.apple.com/us/album/la-gota-fr%C3%ADa/1543991915?i=1543991935'
 
       // Act
-      const trackParams = trackParamsExtractor.extractTrackParams()
+      const trackParams = await trackParamsExtractor.extractTrackParams(
+        sharedUrl
+      )
 
       // Assert
       expect(trackParams).toEqual({
@@ -80,15 +77,11 @@ describe('Testing TrackParamsExtractor to extract serviceProvider and trackId fr
       })
     })
 
-    it('For Apple Music: should return null if the shared URL is not set', () => {
+    it('should throw an error if shared url if not defined', async () => {
       // Arrange
       const trackParamsExtractor = new TrackParamsExtractor()
 
-      // Act
-      const trackParams = trackParamsExtractor.extractTrackParams()
-
-      // Assert
-      expect(trackParams).toBeNull()
+      await expect(trackParamsExtractor.extractTrackParams()).rejects.toThrow()
     })
   })
 })
