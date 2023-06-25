@@ -2,7 +2,7 @@ import TrackSearch from '../../../interfaces/TrackSearch.js'
 import dotenv from 'dotenv'
 
 class DeezerTrackSearch extends TrackSearch {
-  async searchForTrack(incomingTrackDetails) {
+  async searchForTrack (incomingTrackDetails) {
     // Set environment variables
     dotenv.config()
 
@@ -15,7 +15,7 @@ class DeezerTrackSearch extends TrackSearch {
 
     // Get the response
     const response = await fetch(this.searchUrl, {
-      timeout: TIMEOUT,
+      timeout: TIMEOUT
     })
 
     // Check if the response is valid

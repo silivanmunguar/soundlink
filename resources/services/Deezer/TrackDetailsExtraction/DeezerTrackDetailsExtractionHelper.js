@@ -9,7 +9,7 @@ class DeezerTrackDetailsExtractionHelper {
   }
 
   async getTrackId(trackId) {
-    // Get the string at the end of the shared url that.
+    // set the track id
     const tempTrackId = trackId
 
     // Set the raw track url.
@@ -30,10 +30,17 @@ class DeezerTrackDetailsExtractionHelper {
     const lastSlashIndex = url.lastIndexOf('/')
     this._trackId = url.substring(lastSlashIndex + 1).split('?')[0]
 
-    // console.log('Helper-trackId :', this._trackId)
-
     return this._trackId
   }
 }
 
 export default DeezerTrackDetailsExtractionHelper
+
+// test
+// const deezerTrackDetailsExtractionHelper =
+//   new DeezerTrackDetailsExtractionHelper()
+// deezerTrackDetailsExtractionHelper
+//   .getTrackId('JbTJe9mtGEdh3tqT9')
+//   .then((trackId) => {
+//     console.log('trackId :', trackId)
+//   })

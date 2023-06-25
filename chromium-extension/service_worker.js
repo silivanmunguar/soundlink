@@ -6,7 +6,7 @@ chrome.declarativeNetRequest.onRuleMatchedDebug.addListener((e) => {
   const msg = `Navigation to ${e.request.url} redirected on tab ${e.request.tabId}.`
   console.log(msg)
   chrome.tabs.update(e.request.tabId, {
-    url: chrome.runtime.getURL('/homepage/index.html'),
+    url: chrome.runtime.getURL('/homepage/index.html')
   })
 })
 
@@ -19,12 +19,12 @@ chrome.declarativeNetRequest.onRuleMatchedDebug.addListener((e) => {
 // Select the thumbnail
 // const thunmbnail = document.getElementById('thumbnail-scr')
 
-//shared url
+// shared url
 const sharedUrl = 'https://deezer.page.link/JbTJe9mtGEdh3tqT9'
 
 // Extract track params from URL
 const trackParams = await new TrackParamsExtractor().extractTrackParams(
-  sharedUrl,
+  sharedUrl
 )
 // const trackParams = { serviceProvider: 'deezer', trackId: '2185137987' }
 
@@ -41,22 +41,22 @@ const resultsFromAllServices = {
       title: 'Reckless & Sweet',
       artist: 'Amaarae',
       album: 'Reckless & Sweet',
-      externalUrl: 'https://open.spotify.com/track/0YF4MF77Kw8CMkZkfDFtlj',
-    },
+      externalUrl: 'https://open.spotify.com/track/0YF4MF77Kw8CMkZkfDFtlj'
+    }
   },
   deezer: {
     track: {
       title: 'Reckless & Sweet',
       artist: 'Amaarae',
       album: 'Reckless & Sweet',
-      externalUrl: 'https://www.deezer.com/track/2185137987',
-    },
-  },
+      externalUrl: 'https://www.deezer.com/track/2185137987'
+    }
+  }
 }
 
 // set thumbnail src
 if (trackParams.serviceProvider === 'deezer') {
-  let deezerThumnail = `https://widget.deezer.com/widget/dark/track/${trackParams.trackId}`
+  const deezerThumnail = `https://widget.deezer.com/widget/dark/track/${trackParams.trackId}`
   console.log('deezer thumbnail: ', deezerThumnail)
 }
 

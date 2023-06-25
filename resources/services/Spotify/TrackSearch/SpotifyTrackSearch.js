@@ -3,7 +3,7 @@ import GenerateSpotifyToken from '../Oauth/GenerateSpotifyToken.js'
 import dotenv from 'dotenv'
 
 class SpotifyTrackSearch extends TrackSearch {
-  async searchForTrack(incomingTrackDetails) {
+  async searchForTrack (incomingTrackDetails) {
     // Get the environment variables
     dotenv.config()
 
@@ -22,7 +22,7 @@ class SpotifyTrackSearch extends TrackSearch {
 
     // Set the headers
     const headers = {
-      Authorization: `Bearer ${this.token}`,
+      Authorization: `Bearer ${this.token}`
     }
 
     // Set the timeout
@@ -33,7 +33,7 @@ class SpotifyTrackSearch extends TrackSearch {
     try {
       response = await fetch(this.searchUrl, {
         headers,
-        timeout: TIMEOUT,
+        timeout: TIMEOUT
       })
     } catch (error) {
       console.log('Error getting track: ', error)
@@ -43,7 +43,7 @@ class SpotifyTrackSearch extends TrackSearch {
     if (response.status !== 200) {
       const message = await response.json()
       throw new Error(
-        'searching for track with given trackDetails: ' + response.status,
+        'searching for track with given trackDetails: ' + response.status
       )
     }
 

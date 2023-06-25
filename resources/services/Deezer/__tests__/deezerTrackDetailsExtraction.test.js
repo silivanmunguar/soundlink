@@ -6,7 +6,7 @@ import {
   beforeEach,
   afterEach,
   it,
-  expect
+  expect,
 } from '@jest/globals'
 
 describe('Testing DeezerTrackDetailsExtraction', () => {
@@ -21,71 +21,30 @@ describe('Testing DeezerTrackDetailsExtraction', () => {
   })
 
   it('should return track details for a valid track ID', async () => {
-    const trackId = 'v7LvtVo1wQq7tJnK6'
-    const expectedTrackId = '576754312'
+    const trackId = '576754312'
     const expectedTrackDetails = {
       title: 'Baby (feat. MARINA & Luis Fonsi)',
       artist: 'Clean Bandit',
       album: 'Baby (feat. MARINA & Luis Fonsi)',
-      externalUrl: 'https://www.deezer.com/track/576754312'
+      externalUrl: 'https://www.deezer.com/track/576754312',
     }
 
-    // Mock the getTrackId method of DeezerTrackDetailsExtractionHelper
-    const getTrackIdMock = jest.spyOn(
-      DeezerTrackDetailsExtractionHelper.prototype,
-      'getTrackId'
-    )
-    getTrackIdMock.mockImplementation(() => Promise.resolve(expectedTrackId))
-
+    // Try to get the track details
     const trackDetails = await deezerTrackDetailsExtraction.getTrackDetails(
-      trackId
+      trackId,
     )
 
     expect(trackDetails).toEqual(expectedTrackDetails)
-    expect(getTrackIdMock).toHaveBeenCalledWith(trackId)
   })
 
   it('should throw an error for an invalid input', async () => {
-    const trackId = 'SDSDS'
+    const trackId = 'invalid'
 
-    // Mock the getTrackId method of DeezerTrackDetailsExtractionHelper
-    const getTrackIdMock = jest.spyOn(
-      DeezerTrackDetailsExtractionHelper.prototype,
-      'getTrackId'
-    )
-
-    // Mock the getTrackId method throwing an error
-    getTrackIdMock.mockImplementation(() => {
-      throw new Error('An error occurred')
-    })
-
+    // Try to get the track details
     await expect(
-      deezerTrackDetailsExtraction.getTrackDetails(trackId)
+      deezerTrackDetailsExtraction.getTrackDetails(trackId),
     ).rejects.toThrow()
-
-    expect(getTrackIdMock).toHaveBeenCalledWith(trackId)
   })
-  // it('should throw an error for an invalid trackId', async () => {
-  //   const trackId = 'invalidTrackId'
-
-  //   // Mock the getTrackId method of DeezerTrackDetailsExtractionHelper
-  //   const getTrackIdMock = jest.spyOn(
-  //     DeezerTrackDetailsExtractionHelper.prototype,
-  //     'getTrackId'
-  //   )
-
-  //   // Mock the getTrackId method throwing an error
-  //   getTrackIdMock.mockImplementation(() => {
-  //     throw new Error('An error occurred')
-  //   })
-
-  //   const trackDetails = await deezerTrackDetailsExtraction.getTrackDetails(
-  //     trackId
-  //   )
-
-  //   expect(trackDetails).toBeNull()
-  //   expect(getTrackIdMock).toHaveBeenCalledWith(trackId)
-  // })
 })
 
 describe('Testing DeezerTrackDetailsExtractionHelper', () => {
@@ -96,7 +55,7 @@ describe('Testing DeezerTrackDetailsExtractionHelper', () => {
       new DeezerTrackDetailsExtractionHelper()
   })
 
-  it('should extract the track ID from a shared track URL', async () => {
+  it('should extract the numeric track ID from a shared track URL', async () => {
     const sharedTrackId = 'v7LvtVo1wQq7tJnK6'
     const expectedTrackId = '576754312'
 
@@ -104,12 +63,12 @@ describe('Testing DeezerTrackDetailsExtractionHelper', () => {
     global.fetch = jest.fn(() =>
       Promise.resolve({
         status: 200,
-        url: `https://www.deezer.com/us/track/${expectedTrackId}`
-      })
+        url: `https://www.deezer.com/us/track/${expectedTrackId}`,
+      }),
     )
 
     const trackId = await deezerTrackDetailsExtractionHelper.getTrackId(
-      sharedTrackId
+      sharedTrackId,
     )
 
     expect(trackId).toEqual(expectedTrackId)

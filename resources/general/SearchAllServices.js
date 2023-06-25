@@ -4,18 +4,18 @@ import DeezerTrackSearch from '../services/Deezer/TrackSearch/DeezerTrackSearch.
 import DeezerTrackDetails from '../services/Deezer/TrackDetailsExtraction/DeezerTrackDetailsExtraction.js'
 
 class SearchAllServices {
-  constructor() {
+  constructor () {
     this.trackDetails = {}
     this.resultsFromAllServices = {
       spotify: {},
-      deezer: {},
+      deezer: {}
     }
     this.spotify = true
     this.deezer = true
     this.trackParams = {}
   }
 
-  async getAllTracks(trackParams) {
+  async getAllTracks (trackParams) {
     // Set track params
     this.trackParams = trackParams
 
@@ -25,7 +25,7 @@ class SearchAllServices {
       // Search get track details on spotify
       try {
         this.trackDetails = await spotifyTrackDetails.getTrackDetails(
-          this.trackParams.trackId,
+          this.trackParams.trackId
         )
       } catch (error) {
         console.log('Error getting spotify tracj details: ', error)
@@ -49,7 +49,7 @@ class SearchAllServices {
       const deezerTrackDetails = new DeezerTrackDetails()
       try {
         this.trackDetails = await deezerTrackDetails.getTrackDetails(
-          this.trackParams.trackId,
+          this.trackParams.trackId
         )
       } catch (error) {
         console.log('Error getting deezer track details: ', error)
@@ -69,13 +69,13 @@ class SearchAllServices {
     }
   }
 
-  async searchForTracks(trackDetails) {
+  async searchForTracks (trackDetails) {
     // Search for track details on other services
     if (this.spotify) {
       const spotifyTrackSearch = new SpotifyTrackSearch()
       try {
         this.trackDetails = await spotifyTrackSearch.searchForTrack(
-          this.trackDetails,
+          this.trackDetails
         )
       } catch (error) {
         this.trackDetails = {}
@@ -88,7 +88,7 @@ class SearchAllServices {
     if (this.deezer) {
       try {
         this.trackDetails = await new DeezerTrackSearch().searchForTrack(
-          this.trackDetails,
+          this.trackDetails
         )
       } catch (error) {
         this.trackDetails = {}

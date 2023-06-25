@@ -2,7 +2,7 @@ import TrackDetailsExtraction from '../../../interfaces/TrackDetails.js'
 
 // This class is responsible for getting the track details from Tidal API given a track id.
 class TidalTrackDetails extends TrackDetailsExtraction {
-  async getTrackDetails(trackId) {
+  async getTrackDetails (trackId) {
     this.trackId = trackId
 
     // Set the url
@@ -13,7 +13,7 @@ class TidalTrackDetails extends TrackDetailsExtraction {
 
     // Get the response
     const response = await fetch(url, {
-      timeout: TIMEOUT,
+      timeout: TIMEOUT
     })
 
     // Check if the response is valid
@@ -30,7 +30,7 @@ class TidalTrackDetails extends TrackDetailsExtraction {
       title: responseJSON.title,
       artist: responseJSON.artist.name,
       album: responseJSON.album.title,
-      externalUrl: responseJSON.url,
+      externalUrl: responseJSON.url
     }
 
     return this.trackDetails

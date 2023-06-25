@@ -28,7 +28,7 @@ import dotenv from 'dotenv'
         });
 */
 class SpotifyTrackDetails extends TrackDetailsExtraction {
-  async getTrackDetails(trackId) {
+  async getTrackDetails (trackId) {
     // Get the environment variables
     dotenv.config()
 
@@ -44,7 +44,7 @@ class SpotifyTrackDetails extends TrackDetailsExtraction {
 
     // Set the headers
     const headers = {
-      Authorization: `Bearer ${this.token}`,
+      Authorization: `Bearer ${this.token}`
     }
 
     // Set the timeout
@@ -53,7 +53,7 @@ class SpotifyTrackDetails extends TrackDetailsExtraction {
     // Get the response
     const response = await fetch(url, {
       headers,
-      timeout: TIMEOUT,
+      timeout: TIMEOUT
     })
 
     // Check if the response is valid

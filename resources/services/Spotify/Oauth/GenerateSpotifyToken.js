@@ -52,52 +52,47 @@ class GenerateSpotifyToken {
     dotenv.config()
   }
 
-  // async getToken() {
-  //   // Check if the token is still valid
-  //   if (this.TOKEN && Date.now() - this.TIME_STAMP < this.EXPIRATION) {
-  //     return this.TOKEN
-  //   }
+  async getToken() {
+    // Check if the token is still valid
+    if (this.TOKEN && Date.now() - this.TIME_STAMP < this.EXPIRATION) {
+      return this.TOKEN
+    }
 
-  //   // Set the url
-  //   // const url = process.env.SPOTIFY_API_TOKEN_GENERATOR_URL
-  //   const url = 'https://accounts.spotify.com/api/token'
+    // Set the url
+    const url = process.env.SPOTIFY_API_TOKEN_GENERATOR_URL
 
-  //   console.log(this.client_id)
-  //   console.log(this.client_secret)
+    console.log(this.client_id)
+    console.log(this.client_secret)
 
-  //   // Get the response
-  //   const response = await global.fetch(url, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/x-www-form-urlencoded',
-  //     },
-  //     body: new URLSearchParams({
-  //       grant_type: 'client_credentials',
-  //       client_id: this.client_id,
-  //       client_secret: this.client_secret,
-  //     }),
-  //   })
+    // Get the response
+    const response = await global.fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams({
+        grant_type: 'client_credentials',
+        client_id: this.client_id,
+        client_secret: this.client_secret,
+      }),
+    })
 
-  //   const data = await response.json()
+    const data = await response.json()
 
-  //   if (response.status !== 200) {
-  //     const errorMessage = data.error
-  //     // ? data.error.message
-  //     // : 'Failed to get access token'
-  //     throw new Error(errorMessage)
-  //   }
+    if (response.status !== 200) {
+      const errorMessage = data.error
+      // ? data.error.message
+      // : 'Failed to get access token'
+      throw new Error(errorMessage)
+    }
 
-  //   // Get the token and set the time stamp
-  //   this.TOKEN = data.access_token
-  //   this.TIME_STAMP = Date.now()
+    // Get the token and set the time stamp
+    this.TOKEN = data.access_token
+    this.TIME_STAMP = Date.now()
 
-  //   console.log('Spotify token: ', this.TOKEN)
-  //   // Return the token
-  //   return this.TOKEN
-  // }
-
-  getToken() {
-    return 'BQCdRVEohM10BWQQFOJGhkej9SLqOrwGp0KBBfVX7ut8Qln1lOWLLjla9E4EM6wlQ7JK-amqrGaHOpVEn42ScPcpQXlrxLFVQ8nr4TRYdyQW84y-5i0'
+    console.log('Spotify token: ', this.TOKEN)
+    // Return the token
+    return this.TOKEN
   }
 }
 
