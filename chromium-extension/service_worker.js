@@ -1,14 +1,14 @@
 'use strict'
 import TrackParamsExtractor from '../resources/general/TrackParamsExtractor.js'
-import SearchAllServices from '../resources/general/SearchAllServices.js'
+// import SearchAllServices from '../resources/general/SearchAllServices.js'
 
-chrome.declarativeNetRequest.onRuleMatchedDebug.addListener((e) => {
-  const msg = `Navigation to ${e.request.url} redirected on tab ${e.request.tabId}.`
-  console.log(msg)
-  chrome.tabs.update(e.request.tabId, {
-    url: chrome.runtime.getURL('/homepage/index.html')
-  })
-})
+// chrome.declarativeNetRequest.onRuleMatchedDebug.addListener((e) => {
+//   const msg = `Navigation to ${e.request.url} redirected on tab ${e.request.tabId}.`
+//   console.log(msg)
+//   chrome.tabs.update(e.request.tabId, {
+//     url: chrome.runtime.getURL('/homepage/index.html')
+//   })
+// })
 
 // import TrackParamsExtractor from '../resources/general/TrackParamsExtractor.js'
 // import SearchAllServices from '../resources/general/SearchAllServices.js'
