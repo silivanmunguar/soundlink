@@ -1,3 +1,12 @@
+/**
+ * A class that searches for track details on multiple music services.
+ * @class
+ * @property {Object} trackDetails - The track details object.
+ * @property {Object} resultsFromAllServices - The results from all services object.
+ * @property {boolean} spotify - A boolean indicating whether to search for track details on Spotify.
+ * @property {boolean} deezer - A boolean indicating whether to search for track details on Deezer.
+ * @property {Object} trackParams - The track parameters object.
+ */
 import SpotifyTrackSearch from '../services/Spotify/TrackSearch/SpotifyTrackSearch.js'
 import SpotifyTrackDetails from '../services/Spotify/TrackDetailsExtraction/SpotifyTrackDetails.js'
 import DeezerTrackSearch from '../services/Deezer/TrackSearch/DeezerTrackSearch.js'
@@ -78,7 +87,7 @@ class SearchAllServices {
           this.trackDetails
         )
       } catch (error) {
-        this.trackDetails = {}
+        this.trackDetails = undefined
         console.log('Error: ', error)
       }
       // Set the track details
@@ -91,11 +100,10 @@ class SearchAllServices {
           this.trackDetails
         )
       } catch (error) {
-        this.trackDetails = {}
+        this.trackDetails = undefined
         console.log('Error: ', error)
       }
 
-      console.log('we are here')
       // Set the track details
       this.resultsFromAllServices.deezer.track = this.trackDetails
     }

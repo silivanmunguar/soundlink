@@ -1,8 +1,18 @@
 import TrackSearch from '../../../interfaces/TrackSearch.js'
-import GenerateSpotifyToken from '../Oauth/GenerateSpotifyToken.js'
+import SpotifyTokenGenerator from '../Oauth/GenerateSpotifyToken.js'
 import dotenv from 'dotenv'
 
+/**
+ * A class representing a track search using the Spotify API.
+ * @extends TrackSearch
+ */
 class SpotifyTrackSearch extends TrackSearch {
+  /**
+   * Searches for a track using the Spotify API.
+   * @param {Object} incomingTrackDetails - The details of the track to search for.
+   * @returns {Object} - The details of the found track.
+   * @throws {Error} - If the search fails.
+   */
   async searchForTrack (incomingTrackDetails) {
     // Get the environment variables
     dotenv.config()
@@ -17,8 +27,7 @@ class SpotifyTrackSearch extends TrackSearch {
     this.searchUrl = `${process.env.SPOTIFY_SEARCH_URL}${this.incomingTrackDetails.artist}+${this.incomingTrackDetails.title}${surfixParams}`
 
     // Get the token
-    const tokenGenerator = new GenerateSpotifyToken()
-    this.token = await tokenGenerator.getToken()
+    this.token = await SpotifyTokenGenerator.getToken()
 
     // Set the headers
     const headers = {
@@ -36,14 +45,14 @@ class SpotifyTrackSearch extends TrackSearch {
         timeout: TIMEOUT
       })
     } catch (error) {
-      console.log('Error getting track: ', error)
+      throw new Error('fetching track: ' + error)
     }
 
     // Check if the response is valid
     if (response.status !== 200) {
       const message = await response.json()
       throw new Error(
-        'searching for track with given trackDetails: ' + response.status
+        'searching for track with given trackDetails: ' + message.status
       )
     }
 

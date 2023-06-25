@@ -29,12 +29,12 @@ import DeezerTrackExtractionHelper from '../services/Deezer/TrackDetailsExtracti
  * console.log(trackParams.trackId); // logs '3Zwu2K0Qa5sT6teZO0Ql3j'
  */
 class TrackParamsExtractor {
-  constructor() {
+  constructor () {
     this._trackParams = {}
     this.sharedUrl = ''
   }
 
-  async extractTrackParams(sharedUrl) {
+  async extractTrackParams (sharedUrl) {
     // Set the shared URL
     this.sharedUrl = sharedUrl
     // Get serice provider

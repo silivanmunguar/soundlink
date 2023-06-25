@@ -27,13 +27,13 @@
  * });
  */
 class TrackDetailsExtraction {
-  constructor() {
+  constructor () {
     this.trackDetails = {}
     this.trackId = ''
     this.token = ''
   }
 
-  getTrackDetails(trackId) {
+  getTrackDetails (trackId) {
     throw new Error("Method 'getTrackDetails' must be implemented.")
   }
 }

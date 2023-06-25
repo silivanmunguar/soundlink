@@ -34,7 +34,7 @@ import dotenv from 'dotenv'
         returned. If the token is no longer valid, a new token is generated.
 */
 class GenerateSpotifyToken {
-  constructor() {
+  constructor () {
     if (GenerateSpotifyToken.instance) {
       return GenerateSpotifyToken.instance
     }
@@ -52,7 +52,7 @@ class GenerateSpotifyToken {
     this.EXPIRATION = 3600000 // 1 hour
   }
 
-  async getToken() {
+  async getToken () {
     // Check if the token is still valid
     if (this.TOKEN && Date.now() - this.TIME_STAMP < this.EXPIRATION) {
       return this.TOKEN

@@ -1,8 +1,18 @@
 import TrackDetailsExtraction from '../../../interfaces/TrackDetailsExtraction.js'
 import dotenv from 'dotenv'
 
+/**
+ * A class that extracts track details from Deezer API.
+ * @extends TrackDetailsExtraction
+ */
 class DeezerTrackDetailsExtraction extends TrackDetailsExtraction {
-  async getTrackDetails(trackId) {
+  /**
+   * Fetches the track details from Deezer API.
+   * @param {string} trackId - The ID of the track to fetch details for.
+   * @returns {Object} - An object containing the track details.
+   * @throws {Error} - If there is an error fetching or parsing the track details.
+   */
+  async getTrackDetails (trackId) {
     // Get the environment variables
     dotenv.config()
 
