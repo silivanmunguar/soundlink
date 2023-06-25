@@ -21,7 +21,7 @@ body {
   align-items: center;
   justify-content: center;
   width: 350px;
-  height: 50%;
+  height: auto;
   padding: 20px;
   box-shadow: 0 0 10px 0 rgba(114, 114, 114, 0.2);
   border-radius: 12px;
@@ -40,7 +40,7 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
 }
 
@@ -73,6 +73,11 @@ body {
   height: 100%;
   border: none;
   margin: 0;
+}
+
+.open-with {
+  text-align: center;
+  padding: 10px;
 }
 
 /* Media queries */

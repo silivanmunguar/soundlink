@@ -16,8 +16,6 @@ class SpotifyTrackSearch extends TrackSearch {
     // Set the search url
     this.searchUrl = `${process.env.SPOTIFY_SEARCH_URL}${this.incomingTrackDetails.artist}+${this.incomingTrackDetails.title}${surfixParams}`
 
-    console.log('Search Url: ', this.searchUrl)
-
     // Get the token
     const tokenGenerator = new GenerateSpotifyToken()
     this.token = await tokenGenerator.getToken()

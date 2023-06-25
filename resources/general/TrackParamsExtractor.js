@@ -1,3 +1,5 @@
+import DeezerTrackExtractionHelper from '../services/Deezer/TrackDetailsExtraction/DeezerTrackDetailsExtractionHelper.js'
+
 /**
  * - `TrackParamsExtractor`
  *
@@ -32,12 +34,9 @@ class TrackParamsExtractor {
     this.sharedUrl = ''
   }
 
-  extractTrackParams() {
-    // Return null if the shared URL is not set
-    if (!this.sharedUrl) {
-      return null
-    }
-
+  async extractTrackParams(sharedUrl) {
+    // Set the shared URL
+    this.sharedUrl = sharedUrl
     // Get serice provider
     /** ______________________________________________________________________________
      *
@@ -58,14 +57,19 @@ class TrackParamsExtractor {
       secondDotIndex,
     )
 
-    // adjust for deezer that has a unique share url
-    if (serviceProvider === 'page') {
-      serviceProvider = 'deezer'
-    }
-
     // Get the track id
     const lastSlashIndex = this.sharedUrl.lastIndexOf('/')
-    const trackId = this.sharedUrl.substring(lastSlashIndex + 1).split('?')[0]
+    let trackId = this.sharedUrl.substring(lastSlashIndex + 1).split('?')[0]
+
+    // adjust for deezer that has a unique share url
+    /* TODO: Find a direct way to get track details from Deezer API
+    currently you are quering the share url and then extracting the track
+    url that contains the id and then using the id to quesry track details using a helper class
+    */
+    if (serviceProvider === 'page') {
+      serviceProvider = 'deezer'
+      trackId = await new DeezerTrackExtractionHelper().getTrackId(trackId)
+    }
 
     // Set the track params
     this._trackParams = {

@@ -1,5 +1,4 @@
 import TrackDetailsExtraction from '../../../interfaces/TrackDetailsExtraction.js'
-import DeezerTrackDetailsExtractionHelper from './DeezerTrackDetailsExtractionHelper.js'
 import dotenv from 'dotenv'
 
 class DeezerTrackDetailsExtraction extends TrackDetailsExtraction {
@@ -7,14 +6,8 @@ class DeezerTrackDetailsExtraction extends TrackDetailsExtraction {
     // Get the environment variables
     dotenv.config()
 
-    /* TODO: Find a direct way to get track details from Deezer API
-    currently you are quering the share url and then extracting the track
-    url that contains the id and then using the id to quesry track details using a helper class
-    */
-    // Get the track id
-    this.trackId = await new DeezerTrackDetailsExtractionHelper().getTrackId(
-      trackId,
-    )
+    // Set the track id
+    this.trackId = trackId
 
     // Set the url
     const url = `${process.env.DEEZER_API_TRACK_QUERY_URL}${this.trackId}`
