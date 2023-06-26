@@ -1,9 +1,9 @@
-// const path = require('path')
+const path = require('path')
 
 module.exports = {
   entry: './webapp/src/index.js',
   output: {
     filename: 'main.js',
-    path: '/home/buzzbeebaby/SoundLink/webapp/dist'
+    path: path.resolve(__dirname, 'webapp/dist')
   }
 }
