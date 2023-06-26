@@ -13,7 +13,7 @@ import DeezerTrackSearch from '../services/Deezer/TrackSearch/DeezerTrackSearch.
 import DeezerTrackDetails from '../services/Deezer/TrackDetailsExtraction/DeezerTrackDetailsExtraction.js'
 
 class SearchAllServices {
-  constructor () {
+  constructor() {
     this.trackDetails = {}
     this.resultsFromAllServices = {
       spotify: {},
@@ -24,7 +24,7 @@ class SearchAllServices {
     this.trackParams = {}
   }
 
-  async getAllTracks (trackParams) {
+  async getAllTracks(trackParams) {
     // Set track params
     this.trackParams = trackParams
 
@@ -37,7 +37,7 @@ class SearchAllServices {
           this.trackParams.trackId
         )
       } catch (error) {
-        console.log('Error getting spotify tracj details: ', error)
+        console.log('Error getting spotify track details: ', error)
       }
 
       // Set the track details
@@ -78,7 +78,7 @@ class SearchAllServices {
     }
   }
 
-  async searchForTracks (trackDetails) {
+  async searchForTracks(trackDetails) {
     // Search for track details on other services
     if (this.spotify) {
       const spotifyTrackSearch = new SpotifyTrackSearch()
@@ -88,7 +88,7 @@ class SearchAllServices {
         )
       } catch (error) {
         this.trackDetails = undefined
-        console.log('Error: ', error)
+        console.log('Error searching for track on spotify: ', error)
       }
       // Set the track details
       this.resultsFromAllServices.spotify.track = this.trackDetails
@@ -101,7 +101,7 @@ class SearchAllServices {
         )
       } catch (error) {
         this.trackDetails = undefined
-        console.log('Error: ', error)
+        console.log('Error searching for track on deezer:', error)
       }
 
       // Set the track details

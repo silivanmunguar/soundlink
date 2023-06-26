@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --verbose",
+    "watch_test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watchAll",
     "fix": "standard --fix",
     "build": "webpack --mode=development",
     "start": "webpack serve --mode=development"

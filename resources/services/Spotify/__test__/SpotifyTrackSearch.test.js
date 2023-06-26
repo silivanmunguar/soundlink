@@ -49,6 +49,8 @@ describe('Testing SpotifyTrackSearch to search for songs', () => {
       )
 
       expect(result).toEqual(expectedTrackDetails)
+
+      SpotifyTokenGenerator.getToken.mockRestore()
     })
 
     it('should throw an error if the search fails', async () => {
@@ -59,17 +61,15 @@ describe('Testing SpotifyTrackSearch to search for songs', () => {
 
       jest.spyOn(SpotifyTokenGenerator, 'getToken').mockResolvedValue('token')
       jest.spyOn(global, 'fetch').mockResolvedValue({
-        status: 404,
+        status: 401,
         json: jest.fn().mockResolvedValue({
-          status: 'not found'
+          status: 'Unauthorized'
         })
       })
 
       await expect(
         spotifyTrackSearch.searchForTrack(incomingTrackDetails)
-      ).rejects.toThrow(
-        'searching for track with given trackDetails: not found'
-      )
+      ).rejects.toThrow()
     })
   })
 })

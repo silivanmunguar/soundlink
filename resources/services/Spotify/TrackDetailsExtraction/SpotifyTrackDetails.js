@@ -1,5 +1,5 @@
 import TrackDetailsExtraction from '../../../interfaces/TrackDetailsExtraction.js'
-import GenerateSpotifyToken from '../Oauth/GenerateSpotifyToken.js'
+import SpotifyTokenGenerator from '../Oauth/GenerateSpotifyToken.js'
 import dotenv from 'dotenv'
 
 /**
@@ -28,7 +28,7 @@ import dotenv from 'dotenv'
         });
 */
 class SpotifyTrackDetails extends TrackDetailsExtraction {
-  async getTrackDetails (trackId) {
+  async getTrackDetails(trackId) {
     // Get the environment variables
     dotenv.config()
 
@@ -36,8 +36,7 @@ class SpotifyTrackDetails extends TrackDetailsExtraction {
     this.trackId = trackId
 
     // Get the token
-    const tokenGenerator = new GenerateSpotifyToken()
-    this.token = await tokenGenerator.getToken()
+    this.token = await SpotifyTokenGenerator.getToken()
 
     // Set the url
     const url = `${process.env.SPOTIFY_API_TRACK_QUERY_URL}${this.trackId}`
@@ -63,12 +62,12 @@ class SpotifyTrackDetails extends TrackDetailsExtraction {
     }
 
     // Get the track details
-    const responseJSON = await response.json()
-    this.trackDetails.id = responseJSON.id
-    this.trackDetails.title = responseJSON.name
-    this.trackDetails.artist = responseJSON.artists[0].name
-    this.trackDetails.album = responseJSON.album.name
-    this.trackDetails.externalUrl = responseJSON.external_urls.spotify
+    const details = await response.json()
+    this.trackDetails.id = details.id
+    this.trackDetails.title = details.name
+    this.trackDetails.artist = details.artists[0].name
+    this.trackDetails.album = details.album.name
+    this.trackDetails.externalUrl = details.external_urls.spotify
     return this.trackDetails
   }
 }

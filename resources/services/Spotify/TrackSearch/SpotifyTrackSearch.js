@@ -13,7 +13,7 @@ class SpotifyTrackSearch extends TrackSearch {
    * @returns {Object} - The details of the found track.
    * @throws {Error} - If the search fails.
    */
-  async searchForTrack (incomingTrackDetails) {
+  async searchForTrack(incomingTrackDetails) {
     // Get the environment variables
     dotenv.config()
 
@@ -50,10 +50,7 @@ class SpotifyTrackSearch extends TrackSearch {
 
     // Check if the response is valid
     if (response.status !== 200) {
-      const message = await response.json()
-      throw new Error(
-        'searching for track with given trackDetails: ' + message.status
-      )
+      throw new Error(response.statusText)
     }
 
     // Get the track details

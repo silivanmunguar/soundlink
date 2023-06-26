@@ -12,7 +12,7 @@ class DeezerTrackDetailsExtraction extends TrackDetailsExtraction {
    * @returns {Object} - An object containing the track details.
    * @throws {Error} - If there is an error fetching or parsing the track details.
    */
-  async getTrackDetails (trackId) {
+  async getTrackDetails(trackId) {
     // Get the environment variables
     dotenv.config()
 
@@ -54,7 +54,7 @@ class DeezerTrackDetailsExtraction extends TrackDetailsExtraction {
 
     // check if the response is valid
     if (responseJSON.id === undefined) {
-      throw new Error(`Error: ${responseJSON.error.message}`)
+      throw new Error(`${responseJSON.error.message}`)
     }
 
     this.trackDetails = {
