@@ -6,14 +6,13 @@ import spotifyIcon from "../../assets/icons/icons8-spotify-500.png";
 
 function Homepage() {
   const [trackData, setTrackData] = useState(null);
-  const url =
-    "https://open.spotify.com/track/2XhX2hzgu66MKw09tbbwCE?si=b0c318b2b78f4080";
   useEffect(() => {
     const trackAPI = new TracksAPI();
+    const urlParams = new URLSearchParams(window.location.search);
+    const blockedUrl = urlParams.get("blockedUrl");
     const fetchData = async () => {
-      const data = await trackAPI.getAllTracks(url);
+      const data = await trackAPI.getAllTracks(blockedUrl);
       setTrackData(data);
-      console.log("trackId", data.spotify.track.id);
     };
     fetchData();
   }, []);
