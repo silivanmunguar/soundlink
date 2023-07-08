@@ -6,16 +6,19 @@
   "background": {
     "service_worker": "./service_worker.js"
   },
+
   "declarative_net_request": {
     "rule_resources": [
       {
-        "id": "block_music_services",
+        "id": "filter_music_services",
         "enabled": true,
-        "path": "./block_music_services.json"
+        "path": "./filter_music_services.json"
       }
     ]
   },
+
   "permissions": [
+    "storage",
     "declarativeNetRequest",
     "declarativeNetRequestFeedback",
     "declarativeNetRequestWithHostAccess"
@@ -27,10 +30,15 @@
     "https://www.deezer.com/"
   ],
   "action": {
-    "default_popup": "./popup/index.html",
+    "default_popup": "./popup/homepage/homepage.html",
     "default_icon": "./assets/icons/soundlink.png"
   },
   "icons": {
     "128": "./assets/icons/soundlink.png"
-  }
+  },
+  "content_scripts": [
+    {
+      "js": ["./scripts/homepage.js"]
+    }
+  ]
 }

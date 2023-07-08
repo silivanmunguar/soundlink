@@ -1,0 +1,13 @@
+[
+  {
+    "id": 1,
+    "priority": 1,
+    "condition": {
+      "urlFilter": "https://open.spotify.com/*",
+      "resourceTypes": ["main_frame"]
+    },
+    "action": {
+      "type": "allow"
+    }
+  }
+]

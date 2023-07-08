@@ -6,16 +6,48 @@ import spotifyIcon from "../../assets/icons/icons8-spotify-500.png";
 
 function Homepage() {
   const [trackData, setTrackData] = useState(null);
+  const [thumbnail, setThumbnail] = useState("");
+  const [blockedUrl, setBlockedUrl] = useState("");
+
   useEffect(() => {
-    const trackAPI = new TracksAPI();
+    // Get the blocked url from the query string
     const urlParams = new URLSearchParams(window.location.search);
-    const blockedUrl = urlParams.get("blockedUrl");
+    const blockedUrl = urlParams.get("blockedurl");
+
+    // Set the blocked url
+    setBlockedUrl(blockedUrl);
+
+    // Fetch the track data
+    const trackAPI = new TracksAPI();
     const fetchData = async () => {
-      const data = await trackAPI.getAllTracks(blockedUrl);
-      setTrackData(data);
+      try {
+        const data = await trackAPI.getAllTracks(blockedUrl);
+        setTrackData(data);
+      } catch (error) {
+        console.error(error);
+      }
     };
+
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (!trackData) {
+      return;
+    }
+
+    const { spotify, deezer } = trackData;
+
+    if (blockedUrl.includes("spotify") && spotify) {
+      const src = `https://open.spotify.com/embed/track/${spotify.track.id}`;
+      setThumbnail(src);
+    } else if (blockedUrl.includes("deezer") && deezer) {
+      const trackId = deezer.track.externalUrl.split("/").pop();
+      const src = `https://widget.deezer.com/widget/dark/track/${trackId}`;
+      setThumbnail(src);
+    }
+  }, [trackData, blockedUrl]);
+
   return (
     <div className="homepage-container">
       <div className="topbar">
@@ -24,10 +56,7 @@ function Homepage() {
             className="thumbnail-frame"
             title="song thumbnail"
             id="thumbnail-src"
-            src={
-              "https://open.spotify.com/embed/track/" +
-              trackData?.spotify.track.id
-            }
+            src={thumbnail}
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
             allowtransparency="true"
             loading="lazy"
@@ -62,4 +91,5 @@ function Homepage() {
   );
 }
 
-export default Homepage;
+const MemoizedHomepage = React.memo(Homepage);
+export default MemoizedHomepage;
