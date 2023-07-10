@@ -38,6 +38,12 @@
   },
   "content_scripts": [
     {
+      "matches": [
+        "https://open.spotify.com/*",
+        "https://music.youtube.com/*",
+        "https://music.apple.com/*",
+        "https://www.deezer.com/*"
+      ],
       "js": ["./scripts/homepage.js"]
     }
   ]
