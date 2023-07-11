@@ -9,5 +9,16 @@
     "action": {
       "type": "allow"
     }
+  },
+  {
+    "id": 2,
+    "priority": 1,
+    "condition": {
+      "urlFilter": "https://*.deezer.*",
+      "resourceTypes": ["main_frame"]
+    },
+    "action": {
+      "type": "allow"
+    }
   }
 ]

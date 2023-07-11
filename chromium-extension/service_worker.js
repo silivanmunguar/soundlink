@@ -42,8 +42,8 @@ chrome.declarativeNetRequest.onRuleMatchedDebug.addListener(async (e) => {
   // if the current link is not the default service
   if (!e.request.url.includes(defaultService)) {
     // get the track data from the api
-    // const apiurl = "https://soundlink-api.onrender.com/api/track?";
-    const apiurl = "http://localhost:3001/api/track?";
+    const apiurl = "https://soundlink-api.onrender.com/api/track?";
+    // const apiurl = "http://localhost:3001/api/track?";
 
     // request body
     const body = {
@@ -60,6 +60,7 @@ chrome.declarativeNetRequest.onRuleMatchedDebug.addListener(async (e) => {
         },
         body: JSON.stringify(body),
       }).then((res) => res.json());
+
       // redirect to the track page
       chrome.tabs.update(e.tabId, {
         // dynamically access the service that corresponds to the defaultService

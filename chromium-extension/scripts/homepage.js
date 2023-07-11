@@ -3,6 +3,14 @@ let defaultService;
 // get the user default setting from storage and mark the button as active
 getDefaultService();
 
+const moreButton = document.getElementById("more-button");
+moreButton.addEventListener("click", () => {
+  // open link in new tab
+  chrome.tabs.create({
+    url: "http://localhost:3000/",
+  });
+});
+
 //get the user default setting button
 const buttons = document.querySelectorAll(".button");
 buttons.forEach((button) => {
