@@ -15,7 +15,8 @@ function getDefaultService() {
         console.log("User settings retrieved:", userSettings.defaultService);
         resolve(userSettings.defaultService);
       } else {
-        reject("No default service found");
+        console.log("No user settings found");
+        resolve(null);
       }
     });
   });
@@ -42,8 +43,8 @@ chrome.declarativeNetRequest.onRuleMatchedDebug.addListener(async (e) => {
   // if the current link is not the default service
   if (!e.request.url.includes(defaultService)) {
     // get the track data from the api
-    const apiurl = "https://soundlink-api.onrender.com/api/track?";
-    // const apiurl = "http://localhost:3001/api/track?";
+    const apiurl = "https://soundlink-api.onrender.com/api/resources/all?";
+    // const apiurl = "http://localhost:3001/api/resources/all?";
 
     // request body
     const body = {
@@ -64,7 +65,7 @@ chrome.declarativeNetRequest.onRuleMatchedDebug.addListener(async (e) => {
       // redirect to the track page
       chrome.tabs.update(e.tabId, {
         // dynamically access the service that corresponds to the defaultService
-        url: data[defaultService].track.externalUrl,
+        url: data[defaultService].resource.externalUrl,
       });
       // redirect to a new url
     } catch (error) {

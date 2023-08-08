@@ -7,7 +7,7 @@ const moreButton = document.getElementById("more-button");
 moreButton.addEventListener("click", () => {
   // open link in new tab
   chrome.tabs.create({
-    url: "http://localhost:3000/",
+    url: "_blank",
   });
 });
 
@@ -21,7 +21,7 @@ buttons.forEach((button) => {
 function getDefaultService() {
   chrome.storage.sync.get("userSettings", (data) => {
     const userSettings = data.userSettings;
-    if (userSettings.defaultService) {
+    if (userSettings && userSettings.defaultService) {
       // add the active class to the button
       buttons.forEach((button) => {
         if (button.dataset.service === userSettings.defaultService) {
